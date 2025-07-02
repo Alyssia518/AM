@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Portfolio DNMADE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #27348b, #82368c);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: transparent;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header .logo {
+      font-weight: 500;
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+    }
+
+    nav a {
+      color: #ddd;
+      margin-left: 30px;
+      text-decoration: none;
+      font-weight: 300;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #4caf50;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #4caf50;
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      padding: 40px;
+      gap: 40px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-height: 80vh;
+    }
+
+    /* Timeline sans ronds et scrollbar invisible */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 200px;
+      position: relative;
+      padding-left: 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE et Edge */
+    }
+    .timeline::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .event {
+      cursor: pointer;
+      padding: 12px 20px;
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 12px;
+      transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 400;
+      font-size: 1.2rem;
+      user-select: none;
+      position: relative;
+      left: 20px;
+    }
+
+    .event:hover {
+      background: rgba(76, 175, 80, 0.5);
+      color: #a8e6a3;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6);
+      z-index: 2;
+    }
+
+    .event.selected {
+      background: #4caf50;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 6px 18px #4caf50aa;
+      transform: scale(1.08);
+      z-index: 3;
+    }
+
+    /* Zone image + titre */
+    .project-display {
+      flex: 1;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .project-display h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      transition: color 0.4s ease;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    /* Animation pour changement titre */
+    .animate-title {
+      animation: pulseTitle 0.5s ease forwards;
+    }
+
+    @keyframes pulseTitle {
+      0% { color: #4caf50; text-shadow: 0 0 10px #4caf50; }
+      100% { color: #fff; text-shadow: none; }
+    }
+
+    .project-display h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: #ccc;
+      min-height: 30px;
+      transition: color 0.4s ease;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 350px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      background: #222;
+      transition: opacity 0.6s ease, transform 0.3s ease;
+      cursor: pointer;
+      opacity: 1;
+      align-self: flex-start;
+    }
+
+    .project-image.fade-out {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    .project-image:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        min-height: auto;
+      }
+
+      .project-display {
+        max-width: 100%;
+        align-items: center;
+        text-align: center;
+      }
+
+      .project-display h1 {
+        font-size: 2.5rem;
+      }
+
+      .project-display h2 {
+        font-size: 1.5rem;
+      }
+
+      .project-image {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ORIGINAL</div>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="projet2.html">Projets</a>
+  </nav>
+</header>
+
+<main>
+  <div class="timeline">
+    <div class="event selected" data-img="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" data-title="Projet 1" data-link="projet1.html">Projet 1</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=600&q=80" data-title="Projet 1.5" data-link="projet2.html">Projet 1.5</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&q=80" data-title="Projet 3" data-link="projet3.html">Projet 3</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" data-title="Projet 4" data-link="projet4.html">Projet 4</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1518081461903-7aa3b2dba4f3?auto=format&fit=crop&w=600&q=80" data-title="Projet 5" data-link="projet5.html">Projet 5</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" data-title="Projet 6" data-link="projet6.html">Projet 6</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80" data-title="Projet 7" data-link="projet7.html">Projet 7</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80" data-title="Projet 8" data-link="projet8.html">Projet 8</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" data-title="Projet 9" data-link="projet9.html">Projet 9</div>
+    <div class="event" data-img="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80" data-title="Projet 10" data-link="projet10.html">Projet 10</div>
+  </div>
+
+  <div class="project-display">
+    <h1 id="project-title">Projet<span id="subtitle"> 1</span></h1>
+    <img id="project-image" class="project-image" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Image du projet 1" />
+  </div>
+</main>
+
+<footer id="contact" style="text-align:center; padding:20px 0; color:#ccc;">
+  &copy; 2025 Mon Site Web — Contact : exemple@mail.com
+</footer>
+
+<script>
+  const events = document.querySelectorAll('.event');
+  const projectImage = document.getElementById('project-image');
+  const subtitle = document.getElementById('subtitle');
+  const projectTitle = document.getElementById('project-title');
+
+  let selectedEvent = document.querySelector('.event.selected');
+
+  function fadeImage(newSrc, alt) {
+    projectImage.classList.add('fade-out');
+    setTimeout(() => {
+      projectImage.src = newSrc;
+      projectImage.alt = alt;
+      projectImage.classList.remove('fade-out');
+    }, 300);
+  }
+
+  function animateTitle() {
+    projectTitle.classList.add('animate-title');
+    setTimeout(() => {
+      projectTitle.classList.remove('animate-title');
+    }, 500);
+  }
+
+  events.forEach(event => {
+    event.addEventListener('click', () => {
+      if (selectedEvent) {
+        selectedEvent.classList.remove('selected');
+      }
+      event.classList.add('selected');
+      selectedEvent = event;
+      fadeImage(event.dataset.img, "Image du " + event.dataset.title.toLowerCase());
+      subtitle.textContent = " " + event.dataset.title.split(' ')[1];
+      animateTitle();
+
+      // Redirection vers la page liée
+      if(event.dataset.link) {
+        window.location.href = event.dataset.link;
+      }
+    });
+
+    event.addEventListener('mouseenter', () => {
+      fadeImage(event.dataset.img, "Image du " + event.dataset.title.toLowerCase());
+      subtitle.textContent = " " + event.dataset.title.split(' ')[1];
+      animateTitle();
+    });
+
+    event.addEventListener('mouseleave', () => {
+      fadeImage(selectedEvent.dataset.img, "Image du " + selectedEvent.dataset.title.toLowerCase());
+      subtitle.textContent = " " + selectedEvent.dataset.title.split(' ')[1];
+      animateTitle();
+    });
+  });
+</script>
+
+</body>
+</html>
