@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Portfolio DNMADE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html, body {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #27348b, #82368c);
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: transparent;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header .logo {
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 1.5px;
+  }
+  nav a {
+    color: #ddd;
+    margin-left: 30px;
+    text-decoration: none;
+    font-weight: 300;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #4caf50;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #4caf50;
+    left: 0;
+    bottom: -4px;
+    transition: width 0.3s ease;
+    border-radius: 1px;
+  }
+  nav a:hover::after {
+    width: 100%;
+  }
+  main {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .hero {
+    max-width: 520px;
+    transition: color 0.6s ease;
+  }
+  .hero h1,
+  .hero h2,
+  .hero p {
+    transition: color 0.6s ease;
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+  .hero h2 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 12px;
+    color: #ccc;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: #eee;
+  }
+  .detect-zone.touching h1,
+  .detect-zone.touching h2,
+  .detect-zone.touching p {
+    color: #70cc7a;
+    transition: color 0.6s ease;
+  }
+  footer {
+    background: transparent;
+    padding: 25px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #ddd;
+    font-weight: 300;
+    z-index: 2;
+    position: relative;
+  }
+  .floating-bubble {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 18px solid rgba(144, 238, 144, 0.25);
+    background: transparent;
+    position: absolute;
+    animation: float 8s ease-in-out infinite;
+    cursor: grab;
+    z-index: 10;
+    touch-action: none;
+    transition: border-color 0.3s ease;
+  }
+  .floating-letter {
+    position: absolute;
+    user-select: none;
+    cursor: grab;
+    z-index: 11;
+    width: 250px;
+    height: auto;
+    touch-action: none;
+    transition: transform 0.1s ease;
+  }
+  .floating-letter.draggable {
+    cursor: grabbing;
+    transform: scale(1.05);
+  }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-30px); }
+    100% { transform: translateY(0px); }
+  }
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    .hero h2 {
+      font-size: 1.4rem;
+    }
+    .hero p {
+      font-size: 1rem;
+    }
+    .floating-bubble {
+      width: 80px;
+      height: 80px;
+      border-width: 14px;
+    }
+    .floating-letter {
+      width: 180px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ORIGINAL</div>
+  <nav>
+    <a href="acceuil.html">Accueil</a>
+    <a href="projet2.html">Projets</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero-wrapper" id="hero">
+    <div class="hero detect-zone">
+      <h1>HEY !</h1>
+      <h2>Chargement terminé</h2>
+      <p>Mes créations t'attendent juste en dessous.</p>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  &copy; 2025 Mon Site Web — Contact : exemple@mail.com
+</footer>
+
+<!-- Bulles flottantes -->
+<div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s;"></div>
+<div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s;"></div>
+<div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s;"></div>
+<div class="floating-bubble" style="top: 52%; left: 18%; animation-delay: 3.1s;"></div>
+<div class="floating-bubble" style="top: 65%; left: 60%; animation-delay: 0.7s;"></div>
+<div class="floating-bubble" style="top: 75%; left: 85%; animation-delay: 2.9s;"></div>
+<div class="floating-bubble" style="top: 82%; left: 35%; animation-delay: 1.6s;"></div>
+<div class="floating-bubble" style="top: 90%; left: 8%; animation-delay: 0.3s;"></div>
+
+<!-- Lettres flottantes -->
+<img src="img/alogo.svg" alt="Lettre A" class="floating-letter" style="top: 20%; left: 10%;" />
+<img src="img/mlogo.svg" alt="Lettre M" class="floating-letter" style="top: 50%; left: 40%;" />
+
+<script>
+  const bubbles = document.querySelectorAll('.floating-bubble');
+  const letters = document.querySelectorAll('.floating-letter');
+  const detectZone = document.querySelector('.detect-zone');
+
+  // Variables physiques pour les lettres uniquement
+  const letterPhysics = new Map();
+  
+  // Variables pour le système de maintien du clic
+  const holdTimers = new Map();
+  const HOLD_DURATION = 200; // 200ms pour activer le drag
+
+  // Initialisation des propriétés physiques pour les lettres
+  letters.forEach(letter => {
+    const rect = letter.getBoundingClientRect();
+    letterPhysics.set(letter, {
+      x: parseFloat(letter.style.left) || rect.left,
+      y: parseFloat(letter.style.top) || rect.top,
+      vx: 0,
+      vy: 0,
+      isDragging: false,
+      isDraggable: false,
+      lastMouseX: 0,
+      lastMouseY: 0
+    });
+  });
+
+  // Détection collision
+  function checkCollision(el, zone) {
+    const elRect = el.getBoundingClientRect();
+    const zRect = zone.getBoundingClientRect();
+    return !(
+      elRect.right < zRect.left ||
+      elRect.left > zRect.right ||
+      elRect.bottom < zRect.top ||
+      elRect.top > zRect.bottom
+    );
+  }
+
+  // Met à jour le style quand il y a contact
+  function updateTextOnContact() {
+    let isTouching = false;
+    bubbles.forEach(bubble => {
+      if (checkCollision(bubble, detectZone)) isTouching = true;
+    });
+    letters.forEach(letter => {
+      if (checkCollision(letter, detectZone)) isTouching = true;
+    });
+    detectZone.classList.toggle('touching', isTouching);
+  }
+
+  // Physique avec gravité pour les lettres uniquement
+  function updateLetterPhysics() {
+    const gravity = 0.5;
+    const friction = 0.98;
+    const bounce = 0.7;
+    const groundLevel = window.innerHeight - 100;
+
+    letters.forEach(letter => {
+      const props = letterPhysics.get(letter);
+      if (props.isDragging) return;
+
+      // Gravité
+      props.vy += gravity;
+
+      // Mouvement
+      props.x += props.vx;
+      props.y += props.vy;
+
+      // Collision avec le sol
+      const rect = letter.getBoundingClientRect();
+      if (props.y + rect.height > groundLevel) {
+        props.y = groundLevel - rect.height;
+        props.vy *= -bounce;
+        props.vx *= friction;
+
+        // Arrêt si vitesse trop faible
+        if (Math.abs(props.vy) < 1) props.vy = 0;
+        if (Math.abs(props.vx) < 0.5) props.vx = 0;
+      }
+
+      // Collision avec les côtés
+      if (props.x < 0) {
+        props.x = 0;
+        props.vx *= -bounce;
+      }
+      if (props.x + rect.width > window.innerWidth) {
+        props.x = window.innerWidth - rect.width;
+        props.vx *= -bounce;
+      }
+
+      // Mise à jour position
+      letter.style.left = `${props.x}px`;
+      letter.style.top = `${props.y}px`;
+    });
+
+    updateTextOnContact();
+    requestAnimationFrame(updateLetterPhysics);
+  }
+
+  // Fonction commune pour reprendre l'animation après drag (bulles uniquement)
+  function resumeFloating(el) {
+    el.style.animation = 'none';
+    void el.offsetWidth; // reflow pour relancer animation
+    if(el.classList.contains('floating-bubble')) {
+      el.style.animation = 'float 8s ease-in-out infinite';
+    }
+  }
+
+  // Système de maintien du clic pour les lettres
+  function startHoldTimer(letter, clientX, clientY) {
+    const props = letterPhysics.get(letter);
+    const timer = setTimeout(() => {
+      props.isDraggable = true;
+      letter.classList.add('draggable');
+      
+      // Initialiser le drag immédiatement
+      props.isDragging = true;
+      props.lastMouseX = clientX;
+      props.lastMouseY = clientY;
+      props.vx = 0;
+      props.vy = 0;
+    }, HOLD_DURATION);
+    
+    holdTimers.set(letter, timer);
+  }
+
+  function clearHoldTimer(letter) {
+    const timer = holdTimers.get(letter);
+    if (timer) {
+      clearTimeout(timer);
+      holdTimers.delete(timer);
+    }
+    
+    const props = letterPhysics.get(letter);
+    if (!props.isDragging) {
+      props.isDraggable = false;
+      letter.classList.remove('draggable');
+    }
+  }
+
+  // Drag général
+  let draggingElement = null;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  function dragStart(e) {
+    const element = e.target;
+    
+    if (element.classList.contains('floating-bubble')) {
+      // Comportement normal pour les bulles
+      draggingElement = element;
+      if (e.type === 'mousedown') {
+        offsetX = e.clientX - element.offsetLeft;
+        offsetY = e.clientY - element.offsetTop;
+      } else if (e.type === 'touchstart') {
+        const touch = e.touches[0];
+        offsetX = touch.clientX - element.offsetLeft;
+        offsetY = touch.clientY - element.offsetTop;
+      }
+      element.style.animation = 'none';
+      
+    } else if (element.classList.contains('floating-letter')) {
+      // Nouveau comportement pour les lettres : démarrer le timer
+      const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+      const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+      
+      startHoldTimer(element, clientX, clientY);
+      
+      offsetX = clientX - element.offsetLeft;
+      offsetY = clientY - element.offsetTop;
+    }
+    
+    e.preventDefault();
+  }
+
+  function dragMove(e) {
+    let clientX, clientY;
+    if (e.type === 'mousemove') {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    } else if (e.type === 'touchmove') {
+      const touch = e.touches[0];
+      clientX = touch.clientX;
+      clientY = touch.clientY;
+      e.preventDefault();
+    }
+    
+    // Gérer le drag des bulles
+    if (draggingElement && draggingElement.classList.contains('floating-bubble')) {
+      draggingElement.style.left = `${clientX - offsetX}px`;
+      draggingElement.style.top = `${clientY - offsetY}px`;
+    }
+    
+    // Gérer le drag des lettres (seulement si elles sont draggable)
+    letters.forEach(letter => {
+      const props = letterPhysics.get(letter);
+      if (props.isDragging && props.isDraggable) {
+        if (!draggingElement) draggingElement = letter;
+        
+        const deltaX = clientX - props.lastMouseX;
+        const deltaY = clientY - props.lastMouseY;
+        
+        props.x += deltaX;
+        props.y += deltaY;
+        
+        letter.style.left = `${props.x}px`;
+        letter.style.top = `${props.y}px`;
+        
+        props.lastMouseX = clientX;
+        props.lastMouseY = clientY;
+      }
+    });
+  }
+
+  function dragEnd(e) {
+    const clientX = e.type === 'mouseup' ? e.clientX : e.changedTouches[0].clientX;
+    const clientY = e.type === 'mouseup' ? e.clientY : e.changedTouches[0].clientY;
+    
+    // Nettoyer les timers pour toutes les lettres
+    letters.forEach(letter => {
+      clearHoldTimer(letter);
+      const props = letterPhysics.get(letter);
+      
+      if (props.isDragging && props.isDraggable) {
+        // Appliquer la vitesse basée sur le mouvement final
+        props.vx = (clientX - props.lastMouseX) * 0.3;
+        props.vy = (clientY - props.lastMouseY) * 0.3;
+      }
+      
+      props.isDragging = false;
+      props.isDraggable = false;
+      letter.classList.remove('draggable');
+    });
+    
+    if (draggingElement && draggingElement.classList.contains('floating-bubble')) {
+      resumeFloating(draggingElement);
+    }
+    
+    draggingElement = null;
+  }
+
+  // Ajout des listeners
+  bubbles.forEach(bubble => {
+    bubble.addEventListener('mousedown', dragStart);
+    bubble.addEventListener('touchstart', dragStart, { passive: false });
+  });
+  
+  letters.forEach(letter => {
+    letter.addEventListener('mousedown', dragStart);
+    letter.addEventListener('touchstart', dragStart, { passive: false });
+  });
+
+  document.addEventListener('mousemove', dragMove);
+  document.addEventListener('mouseup', dragEnd);
+
+  document.addEventListener('touchmove', dragMove, { passive: false });
+  document.addEventListener('touchend', dragEnd);
+
+  // Démarrage de la physique pour les lettres
+  updateLetterPhysics();
+
+</script>
+
+</body>
+</html>
