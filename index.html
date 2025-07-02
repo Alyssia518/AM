@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio DNMADE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #27348b, #82368c);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: transparent;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header .logo {
+      font-weight: 500;
+      font-size: 1.6rem;
+      letter-spacing: 1.5px;
+    }
+
+    nav a {
+      color: #ddd;
+      margin-left: 30px;
+      text-decoration: none;
+      font-weight: 300;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #4caf50;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #4caf50;
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-wrapper {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .hero {
+      max-width: 520px;
+      transition: color 0.3s ease;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: #ccc;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #eee;
+    }
+
+    .detect-zone.touching h1,
+    .detect-zone.touching h2,
+    .detect-zone.touching p {
+      color: #70cc7a;
+      transition: color 0.3s ease;
+    }
+
+    footer {
+      background: transparent;
+      padding: 25px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ddd;
+      font-weight: 300;
+      z-index: 2;
+      position: relative;
+    }
+
+    .floating-bubble {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 18px solid rgba(144, 238, 144, 0.25);
+      background: transparent;
+      position: absolute;
+      animation: float 8s ease-in-out infinite;
+      cursor: grab;
+      z-index: 10;
+      touch-action: none;
+      transition: border-color 0.3s ease;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero h2 {
+        font-size: 1.4rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .floating-bubble {
+        width: 80px;
+        height: 80px;
+        border-width: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ORIGINAL</div>
+  <nav>
+  <a href="acceuil.html">Accueil</a>
+  <a href="projet2.html">Projets</a>
+</nav>
+</header>
+
+<main>
+  <section class="hero-wrapper" id="hero">
+    <div class="hero detect-zone">
+      <h1>HEY !</h1>
+      <h2>Chargement terminé</h2>
+      <p>Mes créations t’attendent juste en dessous.</p>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  &copy; 2025 Mon Site Web — Contact : exemple@mail.com
+</footer>
+
+<!-- Bulles flottantes -->
+<div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s;"></div>
+<div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s;"></div>
+<div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s;"></div>
+<div class="floating-bubble" style="top: 52%; left: 18%; animation-delay: 3.1s;"></div>
+<div class="floating-bubble" style="top: 65%; left: 60%; animation-delay: 0.7s;"></div>
+<div class="floating-bubble" style="top: 75%; left: 85%; animation-delay: 2.9s;"></div>
+<div class="floating-bubble" style="top: 82%; left: 35%; animation-delay: 1.6s;"></div>
+<div class="floating-bubble" style="top: 90%; left: 8%; animation-delay: 0.3s;"></div>
+
+<script>
+  const bubbles = document.querySelectorAll('.floating-bubble');
+  const detectZone = document.querySelector('.detect-zone');
+  let dragging = null;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  function checkCollision(bubble, zone) {
+    const bRect = bubble.getBoundingClientRect();
+    const zRect = zone.getBoundingClientRect();
+    return !(
+      bRect.right < zRect.left ||
+      bRect.left > zRect.right ||
+      bRect.bottom < zRect.top ||
+      bRect.top > zRect.bottom
+    );
+  }
+
+  function updateTextOnContact() {
+    let isTouching = false;
+    bubbles.forEach(bubble => {
+      if (checkCollision(bubble, detectZone)) {
+        isTouching = true;
+      }
+    });
+
+    detectZone.classList.toggle('touching', isTouching);
+    requestAnimationFrame(updateTextOnContact);
+  }
+  updateTextOnContact();
+
+  function resumeFloating(bubble) {
+    bubble.style.animation = 'none';
+    void bubble.offsetWidth;
+    bubble.style.animation = 'float 8s ease-in-out infinite';
+  }
+
+  bubbles.forEach(bubble => {
+    bubble.addEventListener('mousedown', (e) => {
+      dragging = bubble;
+      offsetX = e.clientX - bubble.offsetLeft;
+      offsetY = e.clientY - bubble.offsetTop;
+      bubble.style.animation = 'none';
+    });
+
+    bubble.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      dragging = bubble;
+      const touch = e.touches[0];
+      offsetX = touch.clientX - bubble.offsetLeft;
+      offsetY = touch.clientY - bubble.offsetTop;
+      bubble.style.animation = 'none';
+    });
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (dragging) {
+      dragging.style.left = `${e.clientX - offsetX}px`;
+      dragging.style.top = `${e.clientY - offsetY}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (dragging) {
+      resumeFloating(dragging);
+      dragging = null;
+    }
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (dragging) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      dragging.style.left = `${touch.clientX - offsetX}px`;
+      dragging.style.top = `${touch.clientY - offsetY}px`;
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchend', () => {
+    if (dragging) {
+      resumeFloating(dragging);
+      dragging = null;
+    }
+  });
+</script>
+
+</body>
+</
