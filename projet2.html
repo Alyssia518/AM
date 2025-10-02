@@ -25,7 +25,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-top: 60px; /* correspond à la hauteur du header */
+      padding-top: 60px; /* correspond à la nouvelle hauteur du header */
     }
 
     header {
@@ -35,11 +35,11 @@
       right: 0;
       background: #ffffff;
       z-index: 1000;
-      padding: 10px 40px;
+      padding: 10px 40px; /* padding réduit */
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 60px; /* header réduit */
+      height: 60px; /* hauteur réduite */
       overflow: hidden;
     }
 
@@ -50,7 +50,7 @@
     }
 
     header .logo img {
-      height: 40px;
+      height: 40px; /* ajusté pour header plus petit */
       width: auto;
       display: block;
     }
@@ -108,8 +108,8 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr); /* 5 colonnes sur grand écran */
-      gap: 20px; /* espace ajusté */
+      grid-template-columns: repeat(5, 1fr);
+      gap: 25px;
       justify-items: center;
       flex: 1;
     }
@@ -331,4 +331,33 @@
       <div class="card-category">Exercice texture</div>
     </a>
     <a href="portfolio8.html" class="card">
-      <div class="card
+      <div class="card-background" style="background-image: url('img/titremalou.jpg');"></div>
+      <div class="card-category">Malou et Lulu</div>
+    </a>
+    <a href="portfolio9.html" class="card">
+      <div class="card-background" style="background-image: url('img/tshirt_maquette2.png'); transform: scaleX(-1);"></div>
+      <div class="card-category">T-shirt 3D</div>
+    </a>
+    <a href="portfolio10.html" class="card">
+      <div class="card-background" style="background-image: url('img/illu_plan_1.jpg');"></div>
+      <div class="card-category">Animation Lyon Streetfood</div>
+    </a>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="footer-content">
+    <div class="contact-item">
+      <a href="mailto:alyssia.mattioni@gmail.com">alyssia.mattioni@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <a href="tel:+33613662129">06 13 66 21 29</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Alyssia Mattioni
+  </div>
+</footer>
+
+</body>
+</html>
