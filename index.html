@@ -156,4 +156,251 @@
     }
 
     .hero h1 {
-      font-size: 
+      font-size: 3.2rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #000000;
+    }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: #000000;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #000000;
+    }
+
+    .detect-zone.touching h1,
+    .detect-zone.touching h2,
+    .detect-zone.touching p {
+      color: #000000 !important;
+      background: none !important;
+      -webkit-text-fill-color: #000000 !important;
+      filter: none !important;
+    }
+
+    footer {
+      background: transparent;
+      padding: 40px 0 10px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #000000;
+      font-weight: 300;
+      z-index: 2;
+      position: relative;
+      line-height: 1.8;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      margin-bottom: 10px;
+    }
+
+    .contact-item {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    .contact-item a {
+      color: #000000;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+      color: #000000;
+    }
+
+    .footer-bottom {
+      font-size: 0.8rem;
+      color: #000000;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .floating-bubble {
+      width: 110px;
+      height: 110px;
+      background: #000000;
+      position: absolute;
+      animation: float 8s ease-in-out infinite;
+      cursor: grab;
+      z-index: 5;
+      touch-action: none;
+      border-radius: 50%;
+      clip-path: polygon(
+        50% 50%,
+        100% 0%,
+        100% 100%,
+        0% 100%,
+        0% 0%
+      );
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* ========== AJOUT IMAGE À GAUCHE DU LIEN "À PROPOS" ========== */
+    nav a[href="apropos.html"] {
+      position: relative;
+      padding-left: 55px; /* laisse de la place pour l'image */
+    }
+
+    nav a[href="apropos.html"]::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background-image: url('img/aproposcoté.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero h2 { font-size: 1.4rem; }
+      .hero p { font-size: 1rem; }
+
+      .floating-bubble {
+        width: 80px;
+        height: 80px;
+      }
+
+      header {
+        padding: 15px 20px;
+        height: 70px;
+      }
+
+      header .logo img {
+        height: 40px;
+      }
+
+      nav a {
+        margin-left: 20px;
+        font-size: 0.9rem;
+      }
+
+      footer .contact-item {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="loading-container" id="loadingContainer">
+    <video class="loading-video" id="loadingVideo" autoplay muted>
+      <source src="img/logositetest.mp4" type="video/mp4" />
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <header>
+      <div class="logo">
+        <img src="img/logo insta.png" alt="Logo" />
+      </div>
+      <nav>
+        <a href="apropos.html">À propos</a>
+        <a href="projet2.html">Projets</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-wrapper" id="hero">
+        <div class="hero detect-zone centered">
+          <h1>HEY !</h1>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="footer-content">
+        <div class="contact-item">
+          <a href="mailto:alyssia.mattioni@gmail.com">alyssia.mattioni@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <a href="tel:+33613662129">06 13 66 21 29</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2025 Alyssia Mattioni
+      </div>
+    </footer>
+
+    <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s; transform: rotate(30deg);"></div>
+    <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s; transform: rotate(90deg);"></div>
+    <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s; transform: rotate(150deg);"></div>
+    <div class="floating-bubble" style="top: 52%; left: 18%; animation-delay: 3.1s; transform: rotate(210deg);"></div>
+    <div class="floating-bubble" style="top: 65%; left: 60%; animation-delay: 0.7s; transform: rotate(270deg);"></div>
+    <div class="floating-bubble" style="top: 75%; left: 85%; animation-delay: 2.9s; transform: rotate(330deg);"></div>
+    <div class="floating-bubble" style="top: 82%; left: 35%; animation-delay: 1.6s; transform: rotate(60deg);"></div>
+    <div class="floating-bubble" style="top: 90%; left: 8%; animation-delay: 0.3s; transform: rotate(120deg);"></div>
+
+  </div>
+
+  <script>
+    const loadingContainer = document.getElementById('loadingContainer');
+    const loadingVideo = document.getElementById('loadingVideo');
+    const mainContent = document.getElementById('mainContent');
+
+    function redirectToMain() {
+      loadingContainer.classList.add('fade-out');
+      setTimeout(() => {
+        loadingContainer.style.display = 'none';
+        mainContent.classList.add('show');
+        document.body.style.overflow = 'auto';
+        initMainPage();
+      }, 500);
+    }
+
+    function initMainPage() {
+      const bubbles = document.querySelectorAll('.floating-bubble');
+      const detectZone = document.querySelector('.detect-zone');
+      let dragging = null;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      function checkCollision(bubble, zone) {
+        const bRect = bubble.getBoundingClientRect();
+        const zRect = zone.getBoundingClientRect();
+        return !(
+          bRect.right < zRect.left ||
+          bRect.left > zRect.right ||
+          bRect.bottom < zRect.top ||
+          bRect.top > zRect.bottom
+        );
+      }
+
+      function updateTextOnContact() {
+        let isTouching = false;
+        bubbles.forEach(bubble => {
+          if (checkCollision(bubble, detectZone)) {
+            isTouching = true;
+          }
+        });
+
+        detectZone.classList.toggle('touching', isTouching);
+        requestAnimationFrame(update
