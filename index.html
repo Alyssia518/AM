@@ -110,26 +110,10 @@
       color: #000000;
     }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      background: #000000;
-      left: 0;
-      bottom: -4px;
-      transition: width 0.3s ease;
-      border-radius: 1px;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
     /* ========== IMAGE À GAUCHE DU LIEN "À PROPOS" ========== */
     nav a[href="apropos.html"] {
       position: relative;
-      padding-left: 55px; /* espace pour l'image */
+      padding-left: 40px; /* espace pour l'image */
     }
 
     nav a[href="apropos.html"]::before {
@@ -138,8 +122,8 @@
       top: 50%;
       left: 0;
       transform: translateY(-50%);
-      width: 50px; /* même taille que logo insta.png */
-      height: 50px;
+      width: 35px; /* image plus petite */
+      height: 35px;
       background-image: url('img/aproposcoté.png');
       background-size: contain;
       background-repeat: no-repeat;
@@ -303,12 +287,12 @@
       }
 
       nav a[href="apropos.html"]::before {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
       }
 
       nav a[href="apropos.html"] {
-        padding-left: 45px;
+        padding-left: 35px;
       }
 
       footer .contact-item {
