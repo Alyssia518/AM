@@ -92,17 +92,25 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 10px 40px 40px; /* On ne touche pas le padding-top pour ne pas déplacer les cartes */
+      padding: 10px 40px 40px; /* padding normal pour garder les cartes à la même place */
       background: url('img/banniere linkedin.jpg') no-repeat center top;
       background-size: cover;
+      position: relative; /* pour que h1 en absolute soit relatif à main */
     }
 
     h1 {
       font-size: 2.5rem;
       font-weight: 700;
       text-align: center;
-      margin: -20px 0 50px; /* margin-top négatif pour remonter le titre sans toucher les cartes */
+      margin: 0 0 50px; /* seulement margin-bottom pour espacer les cartes */
       color: #000000;
+      position: absolute; /* position absolue pour le remonter */
+      top: 10px; /* proche du header */
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.6); /* optionnel pour lisibilité sur fond */
+      padding: 5px 15px;
+      border-radius: 6px;
     }
 
     .card-grid {
@@ -111,6 +119,7 @@
       gap: 25px;
       justify-items: center;
       flex: 1;
+      margin-top: 80px; /* pour éviter que les cartes soient sous le h1 */
     }
 
     .card {
@@ -334,29 +343,4 @@
       <div class="card-category">Malou et Lulu</div>
     </a>
     <a href="portfolio9.html" class="card">
-      <div class="card-background" style="background-image: url('img/tshirt_maquette2.png'); transform: scaleX(-1);"></div>
-      <div class="card-category">T-shirt 3D</div>
-    </a>
-    <a href="portfolio10.html" class="card">
-      <div class="card-background" style="background-image: url('img/illu_plan_1.jpg');"></div>
-      <div class="card-category">Animation Lyon Streetfood</div>
-    </a>
-  </div>
-</main>
-
-<footer id="contact">
-  <div class="footer-content">
-    <div class="contact-item">
-      <a href="mailto:alyssia.mattioni@gmail.com">alyssia.mattioni@gmail.com</a>
-    </div>
-    <div class="contact-item">
-      <a href="tel:+33613662129">06 13 66 21 29</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    © 2025 Alyssia Mattioni
-  </div>
-</footer>
-
-</body>
-</html>
+      <div class="card-background" style="background-image:
