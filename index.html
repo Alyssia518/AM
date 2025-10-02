@@ -16,9 +16,9 @@
     html, body {
       height: 100%;
       font-family: 'Marine Up', sans-serif;
-      background: #ffffff;
+      background: #ffffff; /* fond blanc */
       overflow: hidden;
-      color: #000000;
+      color: #000000; /* texte noir */
     }
 
     .loading-container {
@@ -56,8 +56,8 @@
     .main-content {
       display: none;
       height: 100%;
-      background: #ffffff;
-      color: #000000;
+      background: #ffffff; /* fond blanc */
+      color: #000000; /* texte noir */
       overflow-x: hidden;
       position: relative;
     }
@@ -68,7 +68,7 @@
     }
 
     header {
-      background: #ffffff;
+      background: #ffffff; /* fond blanc */
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
@@ -78,6 +78,10 @@
       z-index: 10;
       height: 90px;
       overflow: hidden;
+    }
+
+    header::before {
+      content: none; /* supprime le flou et transparence */
     }
 
     header .logo {
@@ -93,7 +97,7 @@
     }
 
     nav a {
-      color: #000000;
+      color: #000000; /* liens noirs */
       margin-left: 30px;
       text-decoration: none;
       font-weight: 300;
@@ -122,18 +126,19 @@
       width: 100%;
     }
 
-    /* ===== AJOUT IMAGE À GAUCHE DU LIEN "À PROPOS" ===== */
+    /* ========== IMAGE À GAUCHE DU LIEN "À PROPOS" ========== */
     nav a[href="apropos.html"] {
+      position: relative;
       padding-left: 55px; /* espace pour l'image */
     }
 
     nav a[href="apropos.html"]::before {
       content: '';
       position: absolute;
-      left: 0;
       top: 50%;
+      left: 0;
       transform: translateY(-50%);
-      width: 50px;
+      width: 50px; /* même taille que logo insta.png */
       height: 50px;
       background-image: url('img/aproposcoté.png');
       background-size: contain;
@@ -251,7 +256,7 @@
     .floating-bubble {
       width: 110px;
       height: 110px;
-      background: #000000;
+      background: #000000; /* bulles noires */
       position: absolute;
       animation: float 8s ease-in-out infinite;
       cursor: grab;
@@ -295,6 +300,15 @@
       nav a {
         margin-left: 20px;
         font-size: 0.9rem;
+      }
+
+      nav a[href="apropos.html"]::before {
+        width: 40px;
+        height: 40px;
+      }
+
+      nav a[href="apropos.html"] {
+        padding-left: 45px;
       }
 
       footer .contact-item {
@@ -443,12 +457,11 @@
 
       document.addEventListener('touchmove', (e) => {
         if (dragging) {
-          e.preventDefault();
           const touch = e.touches[0];
           dragging.style.left = `${touch.clientX - offsetX}px`;
           dragging.style.top = `${touch.clientY - offsetY}px`;
         }
-      }, { passive: false });
+      });
 
       document.addEventListener('touchend', () => {
         if (dragging) {
@@ -459,12 +472,12 @@
     }
 
     loadingVideo.addEventListener('ended', redirectToMain);
-    loadingVideo.addEventListener('error', redirectToMain);
 
-    window.addEventListener('load', () => {
-      setTimeout(redirectToMain, 5000);
-    });
+    setTimeout(() => {
+      if (!mainContent.classList.contains('show')) {
+        redirectToMain();
+      }
+    }, 8000);
   </script>
-
 </body>
 </html>
