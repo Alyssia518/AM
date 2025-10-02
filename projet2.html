@@ -93,14 +93,16 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 10px 40px 40px;
+      padding: 50px 40px 40px; /* padding-top augmenté pour éloigner le titre */
+      background: url('img/banniere linkedin.jpg') no-repeat center top;
+      background-size: cover;
     }
 
     h1 {
       font-size: 2.5rem;
       font-weight: 700;
       text-align: center;
-      margin: 20px 0 20px;
+      margin: 20px 0 50px; /* margin-bottom augmenté pour espacer les cartes */
       color: #000000;
     }
 
@@ -117,7 +119,7 @@
       width: 100%;
       max-width: 280px;
       height: 220px;
-      border-radius: 6px; /* arrondi réduit ici */
+      border-radius: 6px; /* arrondi réduit */
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.3s ease;
@@ -133,7 +135,6 @@
       background-position: center;
       background-repeat: no-repeat;
       transition: transform 0.5s ease, filter 0.5s ease;
-      /* Placeholder pendant le chargement */
       background-color: rgba(255, 255, 255, 0.1);
     }
 
@@ -215,7 +216,7 @@
       }
       
       main {
-        padding: 10px 20px 40px;
+        padding: 50px 20px 40px;
       }
       
       nav a {
@@ -264,7 +265,6 @@
       color: #000000;
     }
 
-    /* Optimisation footer pour mobile */
     @media (max-width: 600px) {
       footer {
         padding: 20px 15px;
@@ -277,12 +277,10 @@
       }
     }
 
-    /* Optimisation des images - préchargement visuel */
     .card-background[style*="background-image"] {
       background-color: transparent;
     }
 
-    /* Amélioration des performances */
     .card-background {
       transform: translateZ(0);
       backface-visibility: hidden;
