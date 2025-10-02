@@ -69,12 +69,8 @@
       color: #000000;
     }
 
-    nav a[href="apropos.html"] {
-      position: relative;
-      padding-left: 40px;
-    }
-
-    nav a[href="apropos.html"]::before {
+    /* Image à côté du lien "Accueil" */
+    nav a[href="index.html"]::before {
       content: '';
       position: absolute;
       top: 50%;
@@ -86,6 +82,11 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
+    }
+
+    nav a[href="index.html"] {
+      position: relative;
+      padding-left: 40px; /* espace pour l'image */
     }
 
     main {
@@ -200,12 +201,7 @@
         font-size: 0.9rem;
       }
 
-      nav a[href="apropos.html"]::before {
-        width: 30px;
-        height: 30px;
-      }
-
-      nav a[href="apropos.html"] {
+      nav a[href="index.html"] {
         padding-left: 35px;
       }
     }
@@ -331,4 +327,10 @@
       <div class="card-category">Exercice texture</div>
     </a>
     <a href="portfolio8.html" class="card">
-      <div class="card
+      <div class="card-background" style="background-image: url('img/titremalou.jpg');"></div>
+      <div class="card-category">Malou et Lulu</div>
+    </a>
+    <a href="portfolio9.html" class="card">
+      <div class="card-background" style="background-image: url('img/tshirt_maquette2.png'); transform: scaleX(-1);"></div>
+      <div class="card-category">T-shirt 3D</div>
+    </a>
