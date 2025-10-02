@@ -251,17 +251,14 @@
       cursor: grab;
       z-index: 5;
       touch-action: none;
-
-      /* forme Pac-Man (cercle avec 1/4 de coupe) */
       border-radius: 50%;
       clip-path: polygon(
-        50% 50%,   /* centre */
-        100% 0%,   /* coin haut droit */
-        100% 100%, /* coin bas droit */
-        0% 100%,   /* coin bas gauche */
-        0% 0%      /* coin haut gauche */
+        50% 50%,
+        100% 0%,
+        100% 100%,
+        0% 100%,
+        0% 0%
       );
-      transform: rotate(45deg); /* orientation bouche */
     }
 
     @keyframes float {
@@ -350,14 +347,16 @@
       </div>
     </footer>
 
-    <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s;"></div>
-    <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s;"></div>
-    <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s;"></div>
-    <div class="floating-bubble" style="top: 52%; left: 18%; animation-delay: 3.1s;"></div>
-    <div class="floating-bubble" style="top: 65%; left: 60%; animation-delay: 0.7s;"></div>
-    <div class="floating-bubble" style="top: 75%; left: 85%; animation-delay: 2.9s;"></div>
-    <div class="floating-bubble" style="top: 82%; left: 35%; animation-delay: 1.6s;"></div>
-    <div class="floating-bubble" style="top: 90%; left: 8%; animation-delay: 0.3s;"></div>
+    <!-- Bulles Pac-Man avec rotation différente -->
+    <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s; transform: rotate(30deg);"></div>
+    <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s; transform: rotate(90deg);"></div>
+    <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s; transform: rotate(150deg);"></div>
+    <div class="floating-bubble" style="top: 52%; left: 18%; animation-delay: 3.1s; transform: rotate(210deg);"></div>
+    <div class="floating-bubble" style="top: 65%; left: 60%; animation-delay: 0.7s; transform: rotate(270deg);"></div>
+    <div class="floating-bubble" style="top: 75%; left: 85%; animation-delay: 2.9s; transform: rotate(330deg);"></div>
+    <div class="floating-bubble" style="top: 82%; left: 35%; animation-delay: 1.6s; transform: rotate(60deg);"></div>
+    <div class="floating-bubble" style="top: 90%; left: 8%; animation-delay: 0.3s; transform: rotate(120deg);"></div>
+
   </div>
 
   <script>
@@ -475,4 +474,3 @@
 
 </body>
 </html>
-
