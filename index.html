@@ -347,15 +347,15 @@
       </div>
     </footer>
 
-    <!-- Bulles Pac-Man avec rotation différente -->
-    <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s; transform: rotate(30deg);"></div>
-    <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s; transform: rotate(90deg);"></div>
-    <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s; transform: rotate(150deg);"></div>
-    <div class="floating-bubble" style="top: 52%; left: 18%; animation-delay: 3.1s; transform: rotate(210deg);"></div>
-    <div class="floating-bubble" style="top: 65%; left: 60%; animation-delay: 0.7s; transform: rotate(270deg);"></div>
-    <div class="floating-bubble" style="top: 75%; left: 85%; animation-delay: 2.9s; transform: rotate(330deg);"></div>
-    <div class="floating-bubble" style="top: 82%; left: 35%; animation-delay: 1.6s; transform: rotate(60deg);"></div>
-    <div class="floating-bubble" style="top: 90%; left: 8%; animation-delay: 0.3s; transform: rotate(120deg);"></div>
+    <!-- Bulles Pac-Man -->
+    <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s;"></div>
+    <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s;"></div>
+    <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s;"></div>
+    <div class="floating-bubble" style="top: 52%; left: 18%; animation-delay: 3.1s;"></div>
+    <div class="floating-bubble" style="top: 65%; left: 60%; animation-delay: 0.7s;"></div>
+    <div class="floating-bubble" style="top: 75%; left: 85%; animation-delay: 2.9s;"></div>
+    <div class="floating-bubble" style="top: 82%; left: 35%; animation-delay: 1.6s;"></div>
+    <div class="floating-bubble" style="top: 90%; left: 8%; animation-delay: 0.3s;"></div>
 
   </div>
 
@@ -381,6 +381,12 @@
       let offsetX = 0;
       let offsetY = 0;
 
+      // Rotation aléatoire dès le départ
+      bubbles.forEach(bubble => {
+        const angle = Math.floor(Math.random() * 360);
+        bubble.style.transform = `rotate(${angle}deg)`;
+      });
+
       function checkCollision(bubble, zone) {
         const bRect = bubble.getBoundingClientRect();
         const zRect = zone.getBoundingClientRect();
@@ -400,77 +406,4 @@
           }
         });
 
-        detectZone.classList.toggle('touching', isTouching);
-        requestAnimationFrame(updateTextOnContact);
-      }
-      updateTextOnContact();
-
-      function resumeFloating(bubble) {
-        bubble.style.animation = 'none';
-        void bubble.offsetWidth;
-        bubble.style.animation = 'float 8s ease-in-out infinite';
-      }
-
-      bubbles.forEach(bubble => {
-        bubble.addEventListener('mousedown', (e) => {
-          dragging = bubble;
-          offsetX = e.clientX - bubble.offsetLeft;
-          offsetY = e.clientY - bubble.offsetTop;
-          bubble.style.animation = 'none';
-        });
-
-        bubble.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          dragging = bubble;
-          const touch = e.touches[0];
-          offsetX = touch.clientX - bubble.offsetLeft;
-          offsetY = touch.clientY - bubble.offsetTop;
-          bubble.style.animation = 'none';
-        });
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (dragging) {
-          dragging.style.left = `${e.clientX - offsetX}px`;
-          dragging.style.top = `${e.clientY - offsetY}px`;
-        }
-      });
-
-      document.addEventListener('mouseup', () => {
-        if (dragging) {
-          resumeFloating(dragging);
-          dragging = null;
-        }
-      });
-
-      document.addEventListener('touchmove', (e) => {
-        if (dragging) {
-          e.preventDefault();
-          const touch = e.touches[0];
-          dragging.style.left = `${touch.clientX - offsetX}px`;
-          dragging.style.top = `${touch.clientY - offsetY}px`;
-        }
-      }, { passive: false });
-
-      document.addEventListener('touchend', () => {
-        if (dragging) {
-          resumeFloating(dragging);
-          dragging = null;
-        }
-      });
-    }
-
-    loadingVideo.addEventListener('ended', redirectToMain);
-    loadingVideo.addEventListener('error', redirectToMain);
-
-    window.addEventListener('load', () => {
-      setTimeout(redirectToMain, 5000);
-    });
-
-    if (document.readyState === 'complete') {
-      setTimeout(redirectToMain, 5000);
-    }
-  </script>
-
-</body>
-</html>
+        detectZone.classList.toggle
