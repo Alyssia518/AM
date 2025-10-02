@@ -68,7 +68,7 @@
     }
 
     header {
-      background: #ffffff; /* fond blanc */
+      background: rgba(0,0,0,0.05);
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
@@ -76,12 +76,20 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      backdrop-filter: blur(6px);
       height: 90px;
       overflow: hidden;
     }
 
     header::before {
-      content: none; /* supprime le flou et transparence */
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      backdrop-filter: blur(15px);
+      z-index: -1;
     }
 
     header .logo {
@@ -259,9 +267,17 @@
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .hero h2 { font-size: 1.4rem; }
-      .hero p { font-size: 1rem; }
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero h2 {
+        font-size: 1.4rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
 
       .floating-bubble {
         width: 80px;
@@ -300,7 +316,7 @@
   <div class="main-content" id="mainContent">
     <header>
       <div class="logo">
-        <img src="img/logo insta.png" alt="Logo" />
+        <img src="img/logoamblanc.svg" alt="Logo" />
       </div>
       <nav>
         <a href="apropos.html">À propos</a>
@@ -330,7 +346,7 @@
       </div>
     </footer>
 
-    <!-- Bulles Pac-Man -->
+    <!-- Bulles Pac-Man avec rotation différente -->
     <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s; transform: rotate(30deg);"></div>
     <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s; transform: rotate(90deg);"></div>
     <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s; transform: rotate(150deg);"></div>
