@@ -5,6 +5,7 @@
   <title>À propos – Portfolio DNMADE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Marine+Up&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -14,44 +15,36 @@
 
     html, body {
       height: 100%;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #27348b, #82368c);
-      color: #fff;
+      font-family: 'Marine Up', sans-serif;
+      background: #ffffff;
+      color: #000000;
       overflow-x: hidden;
-      overflow-y: scroll; /* scroll activé mais invisible */
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE 10+ */
-    }
-
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
     }
 
     header {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 5px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      z-index: 1000;
+      padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(6px);
-      height: 40px;
-      overflow: hidden;
+      height: 90px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
     header .logo img {
       height: 50px;
       width: auto;
       display: block;
-      margin-left: 20px;
     }
 
     nav a {
-      color: #ddd;
-      margin-left: 20px;
+      color: #000000;
+      margin-left: 30px;
       text-decoration: none;
       font-weight: 300;
       position: relative;
@@ -80,59 +73,53 @@
 
     main {
       display: flex;
-      min-height: calc(100vh - 40px);
-      flex-wrap: wrap;
-      background: none; /* pas de fond noir ici */
+      flex-direction: column;
+      margin-top: 100px;
+      padding: 20px 40px 60px 40px;
     }
 
     .video-section {
-      flex: 1;
+      width: 100%;
       position: relative;
       overflow: hidden;
-      min-height: 400px;
-      background-color: black; /* fond noir uniquement ici */
+      height: 400px;
+      background-color: #f0f0f0;
     }
 
     .video-section video {
-      position: absolute;
-      top: 47%; /* un tout petit peu plus bas */
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      transform: translate(-50%, -50%) scale(1.7);
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
     .text-section {
-      flex: 1;
-      padding: 30px 40px 60px 40px; /* padding-top réduit */
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* contenu aligné en haut */
-      background: linear-gradient(135deg, #27348b, #82368c); /* dégradé violet/bleu */
+      margin-top: 30px;
     }
 
     .text-section h1 {
-      font-size: 2.6rem;
-      margin-bottom: 30px;
-      font-weight: 500;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #000000;
+      text-align: center;
     }
 
     .text-section p {
       font-size: 1.1rem;
-      margin-bottom: 20px;
-      color: #eee;
       line-height: 1.8;
+      margin-bottom: 15px;
+      color: #000000;
     }
 
     .contact-info {
-      margin-top: 30px;
+      margin-top: 20px;
+      text-align: center;
     }
 
     .contact-info a {
-      color: #ddd;
+      color: #000000;
       text-decoration: none;
-      margin-right: 10px;
+      margin: 0 10px;
       transition: color 0.3s ease;
     }
 
@@ -141,38 +128,25 @@
     }
 
     footer {
+      background: transparent;
+      padding: 40px 0 10px 0;
       text-align: center;
       font-size: 0.9rem;
-      color: #bbb;
-      padding: 20px;
-      background: linear-gradient(135deg, #27348b, #82368c);
+      color: #000000;
+      font-weight: 300;
     }
 
     @media (max-width: 768px) {
       main {
-        flex-direction: column;
-        height: auto;
+        padding: 20px;
       }
 
       .video-section {
-        height: 300px;
-      }
-
-      .text-section {
-        padding: 20px 20px 40px 20px;
+        height: 250px;
       }
 
       .text-section h1 {
         font-size: 2rem;
-        text-align: center;
-      }
-
-      .text-section p {
-        text-align: center;
-      }
-
-      .contact-info {
-        text-align: center;
       }
     }
   </style>
@@ -181,7 +155,7 @@
 
   <header>
     <div class="logo">
-      <a href="index.html"><img src="img/logoamblanc.svg" alt="Logo" /></a>
+      <a href="index.html"><img src="img/logo insta.png" alt="Logo" /></a>
     </div>
     <nav>
       <a href="index.html">Accueil</a>
@@ -196,21 +170,19 @@
         Votre navigateur ne supporte pas la vidéo.
       </video>
     </div>
+
     <div class="text-section">
       <h1>À propos</h1>
       <p>
         Bonjour,<br />
         Je m'appelle Alyssia et je suis titulaire d'un bac STD2A. Actuellement en 3e année de DN MADE Numérique, option Image numérique et narration, je travaille l'image sous différentes formes : graphisme, animation, illustration, 3D...
       </p>
-
       <p>
-        Dans le cadre de la validation de mon année, je suis à la recherche d'un stage de 4 semaines, du 2 Fevrier au 27 février 2026.
+        Dans le cadre de la validation de mon année, je suis à la recherche d'un stage de 4 semaines, du 2 février au 27 février 2026.
       </p>
-
       <p>
         Si vous avez un projet en tête, n'hésitez pas à m'en parler — je suis toujours curieuse et motivée à l'idée de collaborer.
       </p>
-
       <p>Merci d'avoir pris le temps, je reste à l'écoute de vos retours.</p>
 
       <div class="contact-info">
@@ -218,7 +190,6 @@
           <a href="mailto:alyssia.mattioni@gmail.com">alyssia.mattioni@gmail.com</a> |
           <a href="tel:+33613662129">06 13 66 21 29</a>
         </p>
-        <p>Si je ne réponds pas, n'hésitez pas à laisser un message.</p>
         <p><a href="https://www.behance.net/gallery/226623491/Portfolio" target="_blank">Voir mon portfolio Behance</a></p>
       </div>
     </div>
