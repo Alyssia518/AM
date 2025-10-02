@@ -25,7 +25,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-top: 60px; /* correspond à la nouvelle hauteur du header */
+      padding-top: 60px; /* correspond à la hauteur du header */
     }
 
     header {
@@ -35,11 +35,11 @@
       right: 0;
       background: #ffffff;
       z-index: 1000;
-      padding: 10px 40px; /* padding réduit */
+      padding: 10px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 60px; /* hauteur réduite */
+      height: 60px; /* header réduit */
       overflow: hidden;
     }
 
@@ -50,7 +50,7 @@
     }
 
     header .logo img {
-      height: 40px; /* ajusté pour header plus petit */
+      height: 40px;
       width: auto;
       display: block;
     }
@@ -69,6 +69,7 @@
       color: #000000;
     }
 
+    /* IMAGE À GAUCHE DU LIEN "À PROPOS" */
     nav a[href="apropos.html"] {
       position: relative;
       padding-left: 40px;
@@ -108,8 +109,8 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 25px;
+      grid-template-columns: repeat(5, 1fr); /* 5 colonnes sur grand écran */
+      gap: 20px; /* espace ajusté */
       justify-items: center;
       flex: 1;
     }
@@ -355,9 +356,4 @@
     </div>
   </div>
   <div class="footer-bottom">
-    © 2025 Alyssia Mattioni
-  </div>
-</footer>
-
-</body>
-</html>
+    © 2025 Aly
