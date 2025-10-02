@@ -16,9 +16,9 @@
     html, body {
       height: 100%;
       font-family: 'Marine Up', sans-serif;
-      background: #ffffff;
+      background: #ffffff; /* fond blanc */
       overflow: hidden;
-      color: #000000;
+      color: #000000; /* texte noir */
     }
 
     .loading-container {
@@ -56,8 +56,8 @@
     .main-content {
       display: none;
       height: 100%;
-      background: #ffffff;
-      color: #000000;
+      background: #ffffff; /* fond blanc */
+      color: #000000; /* texte noir */
       overflow-x: hidden;
       position: relative;
     }
@@ -68,7 +68,7 @@
     }
 
     header {
-      background: #ffffff;
+      background: #ffffff; /* fond blanc */
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
@@ -81,7 +81,7 @@
     }
 
     header::before {
-      content: none;
+      content: none; /* supprime le flou et transparence */
     }
 
     header .logo {
@@ -97,14 +97,13 @@
     }
 
     nav a {
-      color: #000000;
+      color: #000000; /* liens noirs */
       margin-left: 30px;
       text-decoration: none;
       font-weight: 300;
       position: relative;
       transition: color 0.3s ease;
       display: inline-block;
-      vertical-align: middle;
     }
 
     nav a:hover {
@@ -233,10 +232,11 @@
       scrollbar-width: none;
     }
 
+    /* ========= BULLES PAC-MAN ========= */
     .floating-bubble {
       width: 110px;
       height: 110px;
-      background: #000000;
+      background: #000000; /* bulles noires */
       position: absolute;
       animation: float 8s ease-in-out infinite;
       cursor: grab;
@@ -256,26 +256,6 @@
       0% { transform: translateY(0px); }
       50% { transform: translateY(-30px); }
       100% { transform: translateY(0px); }
-    }
-
-    /* ========== AJOUT IMAGE À GAUCHE DU LIEN "À PROPOS" ========== */
-    nav a[href="apropos.html"] {
-      position: relative;
-      padding-left: 55px; /* laisse de la place pour l'image */
-    }
-
-    nav a[href="apropos.html"]::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      background-image: url('img/aproposcoté.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
     }
 
     @media (max-width: 768px) {
@@ -350,6 +330,7 @@
       </div>
     </footer>
 
+    <!-- Bulles Pac-Man -->
     <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s; transform: rotate(30deg);"></div>
     <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s; transform: rotate(90deg);"></div>
     <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s; transform: rotate(150deg);"></div>
@@ -403,4 +384,76 @@
         });
 
         detectZone.classList.toggle('touching', isTouching);
-        requestAnimationFrame(update
+        requestAnimationFrame(updateTextOnContact);
+      }
+      updateTextOnContact();
+
+      function resumeFloating(bubble) {
+        bubble.style.animation = 'none';
+        void bubble.offsetWidth;
+        bubble.style.animation = 'float 8s ease-in-out infinite';
+      }
+
+      bubbles.forEach(bubble => {
+        bubble.addEventListener('mousedown', (e) => {
+          dragging = bubble;
+          offsetX = e.clientX - bubble.offsetLeft;
+          offsetY = e.clientY - bubble.offsetTop;
+          bubble.style.animation = 'none';
+        });
+
+        bubble.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          dragging = bubble;
+          const touch = e.touches[0];
+          offsetX = touch.clientX - bubble.offsetLeft;
+          offsetY = touch.clientY - bubble.offsetTop;
+          bubble.style.animation = 'none';
+        });
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (dragging) {
+          dragging.style.left = `${e.clientX - offsetX}px`;
+          dragging.style.top = `${e.clientY - offsetY}px`;
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (dragging) {
+          resumeFloating(dragging);
+          dragging = null;
+        }
+      });
+
+      document.addEventListener('touchmove', (e) => {
+        if (dragging) {
+          e.preventDefault();
+          const touch = e.touches[0];
+          dragging.style.left = `${touch.clientX - offsetX}px`;
+          dragging.style.top = `${touch.clientY - offsetY}px`;
+        }
+      }, { passive: false });
+
+      document.addEventListener('touchend', () => {
+        if (dragging) {
+          resumeFloating(dragging);
+          dragging = null;
+        }
+      });
+    }
+
+    loadingVideo.addEventListener('ended', redirectToMain);
+    loadingVideo.addEventListener('error', redirectToMain);
+
+    window.addEventListener('load', () => {
+      setTimeout(redirectToMain, 5000);
+    });
+
+    if (document.readyState === 'complete') {
+      setTimeout(redirectToMain, 5000);
+    }
+  </script>
+
+</body>
+</html>
