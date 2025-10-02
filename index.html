@@ -68,7 +68,7 @@
     }
 
     header {
-      background: rgba(0,0,0,0.0);
+      background: #ffffff; /* fond blanc */
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
@@ -76,20 +76,12 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      backdrop-filter: blur(6px);
       height: 90px;
       overflow: hidden;
     }
 
     header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      backdrop-filter: blur(15px);
-      z-index: -1;
+      content: none; /* supprime le flou et transparence */
     }
 
     header .logo {
@@ -267,17 +259,9 @@
     }
 
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero h2 {
-        font-size: 1.4rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
+      .hero h1 { font-size: 2rem; }
+      .hero h2 { font-size: 1.4rem; }
+      .hero p { font-size: 1rem; }
 
       .floating-bubble {
         width: 80px;
@@ -346,7 +330,7 @@
       </div>
     </footer>
 
-    <!-- Bulles Pac-Man avec rotation différente -->
+    <!-- Bulles Pac-Man -->
     <div class="floating-bubble" style="top: 10%; left: 12%; animation-delay: 0s; transform: rotate(30deg);"></div>
     <div class="floating-bubble" style="top: 25%; left: 42%; animation-delay: 1.2s; transform: rotate(90deg);"></div>
     <div class="floating-bubble" style="top: 38%; left: 75%; animation-delay: 2.4s; transform: rotate(150deg);"></div>
@@ -473,4 +457,3 @@
 
 </body>
 </html>
-
