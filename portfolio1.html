@@ -13,7 +13,7 @@
     body {
       font-family: 'Montserrat', sans-serif;
       background: #ffffff;
-      color: black; /* ✅ texte principal en noir */
+      color: black; /* ✅ texte global en noir */
       padding: 60px 30px;
       min-height: 100vh;
       box-sizing: border-box;
@@ -35,7 +35,7 @@
       padding: 15px 25px 15px 25px;
       position: relative;
       border-radius: 6px;
-      color: black; /* ✅ texte interne noir */
+      color: black !important; /* ✅ forçage du texte en noir */
     }
  
     .description::before {
@@ -51,6 +51,7 @@
  
     .description p {
       margin-bottom: 10px;
+      color: black !important; /* ✅ garantit que tout reste noir */
     }
 
     .button-link {
