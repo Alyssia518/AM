@@ -12,7 +12,7 @@
 
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #ffffff
+      background: #ffffff;
       color: white;
       padding: 60px 30px;
       min-height: 100vh;
@@ -81,7 +81,7 @@
       align-items: center;
       gap: 8px;
       padding: 12px 28px;
-      border: 2px solid white;
+      border: 2px solid black; /* ✅ contour noir */
       font-size: 16px;
       background-color: black;
       border-radius: 100px;
@@ -107,16 +107,17 @@
  
     .animated-button:hover {
       background-color: white;
-      color: #ffffff;
+      color: black; /* ✅ visible sur fond blanc */
+      border-color: black; /* ✅ contour reste visible */
       box-shadow: none;
     }
  
     .animated-button:hover svg {
-      fill: #1f387e;
+      fill: black; /* ✅ icône visible sur fond blanc */
     }
  
     .animated-button:hover .text {
-      color: #1f387e;
+      color: black; /* ✅ texte visible sur fond blanc */
     }
 
     /* Responsive Design */
@@ -242,14 +243,4 @@
 </a>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
