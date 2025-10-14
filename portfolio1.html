@@ -103,21 +103,22 @@
  
     .animated-button .text {
       transition: color 0.4s ease;
+      color: white; /* texte par défaut blanc */
     }
  
     .animated-button:hover {
       background-color: white;
-      color: black; /* ✅ texte visible sur fond blanc */
       border-color: black; /* ✅ contour reste visible */
       box-shadow: none;
+      /* on évite de définir `color` ici pour ne pas propager sur d'autres éléments */
     }
  
     .animated-button:hover svg {
-      fill: black; /* ✅ icône visible sur fond blanc */
+      fill: black; /* icône visible sur fond blanc */
     }
  
     .animated-button:hover .text {
-      color: black; /* ✅ texte noir au survol */
+      color: black; /* seul le mot "Retour" devient noir au survol */
     }
 
     /* Responsive Design */
