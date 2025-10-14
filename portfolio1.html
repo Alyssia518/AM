@@ -13,7 +13,7 @@
     body {
       font-family: 'Montserrat', sans-serif;
       background: #ffffff;
-      color: white;
+      color: black; /* ✅ texte principal en noir */
       padding: 60px 30px;
       min-height: 100vh;
       box-sizing: border-box;
@@ -23,6 +23,7 @@
       text-align: center;
       font-size: 2.5rem;
       margin-bottom: 40px;
+      color: black; /* ✅ titre noir */
     }
  
     .description {
@@ -30,10 +31,11 @@
       margin: 0 auto 40px;
       font-size: 1.15rem;
       line-height: 1.4;
-      background-color: rgba(255, 255, 255, 0.06);
+      background-color: rgba(0, 0, 0, 0.04); /* ✅ fond clair */
       padding: 15px 25px 15px 25px;
       position: relative;
       border-radius: 6px;
+      color: black; /* ✅ texte interne noir */
     }
  
     .description::before {
@@ -60,7 +62,7 @@
       border-radius: 100px;
       text-decoration: none;
       font-size: 16px;
-      box-shadow: 0 0 0 1.5px white;
+      box-shadow: 0 0 0 1.5px black;
       transition: background-color 0.4s ease, color 0.4s ease;
       cursor: pointer;
       margin-top: 20px;
@@ -81,7 +83,7 @@
       align-items: center;
       gap: 8px;
       padding: 12px 28px;
-      border: 2px solid black; /* ✅ contour noir */
+      border: 2px solid black;
       font-size: 16px;
       background-color: black;
       border-radius: 100px;
@@ -107,17 +109,17 @@
  
     .animated-button:hover {
       background-color: white;
-      color: black; /* ✅ visible sur fond blanc */
-      border-color: black; /* ✅ contour reste visible */
+      color: black;
+      border-color: black;
       box-shadow: none;
     }
  
     .animated-button:hover svg {
-      fill: black; /* ✅ icône visible sur fond blanc */
+      fill: black;
     }
  
     .animated-button:hover .text {
-      color: black; /* ✅ texte visible sur fond blanc */
+      color: black;
     }
 
     /* Responsive Design */
@@ -189,7 +191,6 @@
       }
     }
     
-    /* Optimisation pour très petits écrans */
     @media (max-width: 320px) {
       body {
         padding: 15px 8px;
