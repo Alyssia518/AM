@@ -134,7 +134,7 @@
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: filter 0.3s ease, transform 0.3s ease;
+      transition: filter 0.3s ease;
       z-index: 1;
       will-change: transform;
     }
@@ -392,7 +392,7 @@
         
         const baseX = parseFloat(card.dataset.x) || 0;
         const baseY = parseFloat(card.dataset.y) || 0;
-        const rotation = initialPositions[index]?.rotation || 0;
+        const rotation = parseFloat(card.dataset.rotation) || 0;
         
         card.style.transform = `translate(${baseX + offsetX}px, ${baseY + offsetY}px) rotate(${rotation}deg)`;
       }
@@ -424,6 +424,7 @@
     card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
     card.dataset.x = pos.x;
     card.dataset.y = pos.y;
+    card.dataset.rotation = pos.rotation;
   });
 
   animateFloat();
@@ -467,10 +468,23 @@
       e.preventDefault();
       currentCard.classList.add('dragging');
 
-      const newX = initialX + deltaX;
-      const newY = initialY + deltaY;
-      const rotation = initialPositions[currentCard.dataset.index]?.rotation || 0;
-      
+      // Calculer la nouvelle position
+      let newX = initialX + deltaX;
+      let newY = initialY + deltaY;
+
+      // Obtenir les dimensions du conteneur et de la carte
+      const containerRect = container.getBoundingClientRect();
+      const cardWidth = currentCard.offsetWidth;
+      const cardHeight = currentCard.offsetHeight;
+
+      // Limiter les positions pour rester dans le conteneur
+      const maxX = containerRect.width - cardWidth;
+      const maxY = containerRect.height - cardHeight;
+
+      newX = Math.max(0, Math.min(newX, maxX));
+      newY = Math.max(0, Math.min(newY, maxY));
+
+      const rotation = parseFloat(currentCard.dataset.rotation) || 0;
       currentCard.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
     }
   }
@@ -498,8 +512,22 @@
       const deltaX = touch.clientX - startX;
       const deltaY = touch.clientY - startY;
 
-      currentCard.dataset.x = initialX + deltaX;
-      currentCard.dataset.y = initialY + deltaY;
+      // Calculer et limiter la position finale
+      let newX = initialX + deltaX;
+      let newY = initialY + deltaY;
+
+      const containerRect = container.getBoundingClientRect();
+      const cardWidth = currentCard.offsetWidth;
+      const cardHeight = currentCard.offsetHeight;
+
+      const maxX = containerRect.width - cardWidth;
+      const maxY = containerRect.height - cardHeight;
+
+      newX = Math.max(0, Math.min(newX, maxX));
+      newY = Math.max(0, Math.min(newY, maxY));
+
+      currentCard.dataset.x = newX;
+      currentCard.dataset.y = newY;
     }
 
     currentCard.classList.remove('dragging');
@@ -563,6 +591,7 @@
       card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
       card.dataset.x = pos.x;
       card.dataset.y = pos.y;
+      card.dataset.rotation = pos.rotation;
     });
   });
 </script>
