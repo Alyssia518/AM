@@ -16,6 +16,17 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Masquer la barre de défilement */
+    html {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE et Edge */
+    }
+
+    html::-webkit-scrollbar {
+      display: none; /* Chrome, Safari et Opera */
     }
 
     body {
@@ -357,7 +368,8 @@
   </div>
   <div class="footer-bottom">
     © 2025 Alyssia MATTIONI
+  </div>
+</footer>
 
-
-
-
+</body>
+</html>
