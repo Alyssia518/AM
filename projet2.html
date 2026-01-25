@@ -19,7 +19,6 @@
       overflow-x: hidden;
     }
 
-    /* Masquer la barre de défilement */
     html {
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE et Edge */
@@ -366,7 +365,7 @@
   const cards = document.querySelectorAll('.card');
   const container = document.getElementById('cardContainer');
   
-  // Positions initiales désordonnées avec animation de flottement
+  // Positions initiales désordonnées
   const initialPositions = [
     { x: 50, y: 20, rotation: -5 },
     { x: 380, y: 80, rotation: 3 },
@@ -380,13 +379,13 @@
     { x: 1440, y: 280, rotation: 3 }
   ];
 
-  // Animation de flottement
+  // Animation de flottement plus lente
   function animateFloat(card, index) {
     const floatAnimation = () => {
       if (!card.classList.contains('dragging')) {
-        const time = Date.now() / 1000;
-        const offsetX = Math.sin(time + index) * 3;
-        const offsetY = Math.cos(time * 0.8 + index) * 3;
+        const time = Date.now() / 2000; // plus lent
+        const offsetX = Math.sin(time + index) * 1.5;
+        const offsetY = Math.cos(time * 0.8 + index) * 1.5;
         const currentTransform = card.style.transform;
         
         if (currentTransform.includes('translate')) {
@@ -403,32 +402,35 @@
     floatAnimation();
   }
 
-  // Positionner les cartes initialement de façon désordonnée
+  // Positionner cartes initialement sans sortir du conteneur
   cards.forEach((card, index) => {
-    const containerWidth = container.offsetWidth;
+    const containerWidth = container.offsetWidth - card.offsetWidth;
+    const containerHeight = container.offsetHeight - card.offsetHeight;
     let pos = initialPositions[index];
-    
-    // Adapter les positions sur mobile
+
     if (window.innerWidth <= 768) {
       pos = {
-        x: (index % 2) * 260 + Math.random() * 40,
-        y: Math.floor(index / 2) * 220 + Math.random() * 30,
+        x: Math.min((index % 2) * 260 + Math.random() * 40, containerWidth),
+        y: Math.min(Math.floor(index / 2) * 220 + Math.random() * 30, containerHeight),
         rotation: (Math.random() - 0.5) * 10
       };
     } else if (window.innerWidth <= 1200) {
       pos = {
-        x: (index % 3) * 320 + Math.random() * 50,
-        y: Math.floor(index / 3) * 250 + Math.random() * 40,
+        x: Math.min((index % 3) * 320 + Math.random() * 50, containerWidth),
+        y: Math.min(Math.floor(index / 3) * 250 + Math.random() * 40, containerHeight),
         rotation: (Math.random() - 0.5) * 8
       };
+    } else {
+      pos.x = Math.min(pos.x, containerWidth);
+      pos.y = Math.min(pos.y, containerHeight);
     }
-    
+
     card.style.left = '0px';
     card.style.top = '0px';
     card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
     card.dataset.x = pos.x;
     card.dataset.y = pos.y;
-    
+
     animateFloat(card, index);
   });
 
@@ -437,7 +439,6 @@
   let startX, startY;
   let initialX, initialY;
 
-  // Gestion du drag
   function handleStart(e, card) {
     e.preventDefault();
     isDragging = true;
@@ -450,24 +451,23 @@
     initialX = parseFloat(card.dataset.x);
     initialY = parseFloat(card.dataset.y);
 
-    // Grisage des autres cartes
-    cards.forEach(c => {
-      if (c !== card) {
-        c.classList.add('dimmed');
-      }
-    });
+    cards.forEach(c => { if (c !== card) c.classList.add('dimmed'); });
   }
 
   function handleMove(e) {
     if (!isDragging || !currentCard) return;
     e.preventDefault();
-
     const touch = e.type.includes('touch') ? e.touches[0] : e;
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
+    let newX = initialX + deltaX;
+    let newY = initialY + deltaY;
 
-    const newX = initialX + deltaX;
-    const newY = initialY + deltaY;
+    // Empêcher la carte de sortir du conteneur
+    const maxX = container.offsetWidth - currentCard.offsetWidth;
+    const maxY = container.offsetHeight - currentCard.offsetHeight;
+    newX = Math.min(Math.max(0, newX), maxX);
+    newY = Math.min(Math.max(0, newY), maxY);
 
     const rotation = initialPositions[currentCard.dataset.index]?.rotation || 0;
     currentCard.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
@@ -475,80 +475,46 @@
 
   function handleEnd(e) {
     if (!isDragging || !currentCard) return;
-
     const touch = e.type.includes('touch') ? e.changedTouches[0] : e;
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
+    let newX = initialX + (touch.clientX - startX);
+    let newY = initialY + (touch.clientY - startY);
 
-    currentCard.dataset.x = initialX + deltaX;
-    currentCard.dataset.y = initialY + deltaY;
+    const maxX = container.offsetWidth - currentCard.offsetWidth;
+    const maxY = container.offsetHeight - currentCard.offsetHeight;
+    newX = Math.min(Math.max(0, newX), maxX);
+    newY = Math.min(Math.max(0, newY), maxY);
 
+    currentCard.dataset.x = newX;
+    currentCard.dataset.y = newY;
     currentCard.classList.remove('dragging');
-    
-    // Retirer le grisage
     cards.forEach(c => c.classList.remove('dimmed'));
 
     isDragging = false;
     currentCard = null;
   }
 
-  // Event listeners pour PC
   cards.forEach((card, index) => {
     card.addEventListener('mousedown', (e) => handleStart(e, card));
-    
-    // Hover effect
     card.addEventListener('mouseenter', () => {
-      if (!isDragging) {
-        cards.forEach(c => {
-          if (c !== card) {
-            c.classList.add('dimmed');
-          }
-        });
-      }
+      if (!isDragging) cards.forEach(c => { if (c !== card) c.classList.add('dimmed'); });
     });
-    
     card.addEventListener('mouseleave', () => {
-      if (!isDragging) {
-        cards.forEach(c => c.classList.remove('dimmed'));
-      }
+      if (!isDragging) cards.forEach(c => c.classList.remove('dimmed'));
     });
-
-    // Event listeners pour mobile
     card.addEventListener('touchstart', (e) => handleStart(e, card), { passive: false });
   });
 
   document.addEventListener('mousemove', handleMove);
   document.addEventListener('mouseup', handleEnd);
-  
   document.addEventListener('touchmove', handleMove, { passive: false });
   document.addEventListener('touchend', handleEnd);
 
-  // Adapter les positions au redimensionnement
   window.addEventListener('resize', () => {
     cards.forEach((card, index) => {
+      const maxX = container.offsetWidth - card.offsetWidth;
+      const maxY = container.offsetHeight - card.offsetHeight;
       let pos;
       if (window.innerWidth <= 768) {
         pos = {
-          x: (index % 2) * 260 + Math.random() * 40,
-          y: Math.floor(index / 2) * 220 + Math.random() * 30,
-          rotation: (Math.random() - 0.5) * 10
-        };
-      } else if (window.innerWidth <= 1200) {
-        pos = {
-          x: (index % 3) * 320 + Math.random() * 50,
-          y: Math.floor(index / 3) * 250 + Math.random() * 40,
-          rotation: (Math.random() - 0.5) * 8
-        };
-      } else {
-        pos = initialPositions[index];
-      }
-      
-      card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
-      card.dataset.x = pos.x;
-      card.dataset.y = pos.y;
-    });
-  });
-</script>
-
-</body>
-</html>
+          x: Math.min((index % 2) * 260 + Math.random() * 40, maxX),
+         
