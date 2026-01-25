@@ -136,13 +136,11 @@
       display: block;
       transition: filter 0.3s ease;
       z-index: 1;
-      will-change: transform;
     }
 
     .card.dragging {
       cursor: grabbing;
       z-index: 100;
-      transition: none;
     }
 
     .card.dimmed {
@@ -284,11 +282,6 @@
     .card-background[style*="background-image"] {
       background-color: transparent;
     }
-
-    .card-background {
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
   </style>
 </head>
 <body>
@@ -381,28 +374,6 @@
     { x: 1440, y: 280, rotation: 3 }
   ];
 
-  let animationId = null;
-
-  // Animation de flottement
-  function animateFloat() {
-    const time = Date.now() / 2000;
-    
-    cards.forEach((card, index) => {
-      if (!card.classList.contains('dragging')) {
-        const offsetX = Math.sin(time * 0.5 + index) * 2;
-        const offsetY = Math.cos(time * 0.4 + index) * 2;
-        
-        const baseX = parseFloat(card.dataset.baseX) || 0;
-        const baseY = parseFloat(card.dataset.baseY) || 0;
-        const rotation = parseFloat(card.dataset.rotation) || 0;
-        
-        card.style.transform = `translate(${baseX + offsetX}px, ${baseY + offsetY}px) rotate(${rotation}deg)`;
-      }
-    });
-    
-    animationId = requestAnimationFrame(animateFloat);
-  }
-
   // Positionner les cartes initialement
   function positionCards() {
     cards.forEach((card, index) => {
@@ -425,12 +396,34 @@
       card.dataset.baseX = pos.x;
       card.dataset.baseY = pos.y;
       card.dataset.rotation = pos.rotation;
-      card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
     });
   }
 
   positionCards();
-  animateFloat();
+
+  // Animation de flottement - SIMPLIFIÉ ET VISIBLE
+  function animate() {
+    const time = Date.now() / 2000; // Vitesse lente
+    
+    cards.forEach((card, index) => {
+      if (!card.classList.contains('dragging')) {
+        const baseX = parseFloat(card.dataset.baseX);
+        const baseY = parseFloat(card.dataset.baseY);
+        const rotation = parseFloat(card.dataset.rotation);
+        
+        // Mouvement de flottement
+        const floatX = Math.sin(time * 0.5 + index) * 3;
+        const floatY = Math.cos(time * 0.4 + index) * 3;
+        
+        card.style.transform = `translate(${baseX + floatX}px, ${baseY + floatY}px) rotate(${rotation}deg)`;
+      }
+    });
+    
+    requestAnimationFrame(animate);
+  }
+
+  // Démarrer l'animation
+  animate();
 
   let isDragging = false;
   let currentCard = null;
@@ -439,7 +432,6 @@
   let hasMoved = false;
 
   function handleStart(e, card) {
-    // Ne pas empêcher le comportement par défaut au début
     isDragging = true;
     currentCard = card;
     hasMoved = false;
@@ -447,8 +439,8 @@
     const touch = e.type.includes('touch') ? e.touches[0] : e;
     startX = touch.clientX;
     startY = touch.clientY;
-    initialX = parseFloat(card.dataset.baseX) || 0;
-    initialY = parseFloat(card.dataset.baseY) || 0;
+    initialX = parseFloat(card.dataset.baseX);
+    initialY = parseFloat(card.dataset.baseY);
 
     cards.forEach(c => {
       if (c !== card) {
@@ -482,11 +474,11 @@
       const cardWidth = currentCard.offsetWidth;
       const cardHeight = currentCard.offsetHeight;
 
-      // Limiter les positions
+      // Limiter les positions pour rester dans le conteneur
       newX = Math.max(0, Math.min(newX, containerRect.width - cardWidth));
       newY = Math.max(0, Math.min(newY, containerRect.height - cardHeight));
 
-      const rotation = parseFloat(currentCard.dataset.rotation) || 0;
+      const rotation = parseFloat(currentCard.dataset.rotation);
       currentCard.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
     }
   }
@@ -499,7 +491,6 @@
       cards.forEach(c => c.classList.remove('dimmed'));
       isDragging = false;
       currentCard = null;
-      // Ne rien faire d'autre pour laisser le lien s'ouvrir
       return;
     }
 
@@ -521,6 +512,7 @@
     newX = Math.max(0, Math.min(newX, containerRect.width - cardWidth));
     newY = Math.max(0, Math.min(newY, containerRect.height - cardHeight));
 
+    // Mettre à jour la position de base
     currentCard.dataset.baseX = newX;
     currentCard.dataset.baseY = newY;
 
