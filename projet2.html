@@ -120,7 +120,7 @@
     .card-container {
       position: relative;
       width: 100%;
-      min-height: 600px;
+      min-height: 650px;
       flex: 1;
     }
 
@@ -134,8 +134,8 @@
       text-decoration: none;
       color: inherit;
       display: block;
+      transition: filter 0.3s ease;
       z-index: 1;
-      /* PAS de transition ici pour ne pas bloquer l'animation */
     }
 
     .card.dragging {
@@ -145,10 +145,7 @@
 
     .card.dimmed {
       filter: brightness(0.5) saturate(0) blur(5px);
-    }
-
-    .card.dimmed:not(.dragging) {
-      transform: scale(0.94) !important;
+      transform: scale(0.94);
     }
 
     .card-background {
@@ -360,89 +357,62 @@
 </footer>
 
 <script>
-  console.log('Script démarré'); // Pour vérifier que le script fonctionne
-  
   const cards = document.querySelectorAll('.card');
   const container = document.getElementById('cardContainer');
   
-  console.log('Nombre de cartes trouvées:', cards.length); // Debug
-  
-  // Positions initiales désordonnées
+  // Positions désordonnées mais TOUTES VISIBLES à l'écran
   const initialPositions = [
-    { x: 50, y: 20, rotation: -5 },
-    { x: 380, y: 80, rotation: 3 },
-    { x: 710, y: 10, rotation: -2 },
-    { x: 1040, y: 60, rotation: 4 },
-    { x: 1370, y: 30, rotation: -3 },
-    { x: 120, y: 280, rotation: 2 },
-    { x: 450, y: 320, rotation: -4 },
-    { x: 780, y: 270, rotation: 5 },
-    { x: 1110, y: 300, rotation: -2 },
-    { x: 1440, y: 280, rotation: 3 }
+    { x: 60, y: 30, rotation: -5 },
+    { x: 380, y: 90, rotation: 3 },
+    { x: 700, y: 20, rotation: -2 },
+    { x: 1020, y: 70, rotation: 4 },
+    { x: 1340, y: 40, rotation: -3 },
+    { x: 140, y: 290, rotation: 2 },
+    { x: 460, y: 330, rotation: -4 },
+    { x: 780, y: 280, rotation: 5 },
+    { x: 1100, y: 310, rotation: -2 },
+    { x: 220, y: 550, rotation: 3 }
   ];
 
-  // Positionner les cartes initialement
+  // Positionner les cartes
   function positionCards() {
+    const containerWidth = container.offsetWidth;
+    
     cards.forEach((card, index) => {
       let pos = initialPositions[index];
       
+      // Adapter pour mobile
       if (window.innerWidth <= 768) {
         pos = {
-          x: (index % 2) * 260 + Math.random() * 40,
-          y: Math.floor(index / 2) * 220 + Math.random() * 30,
+          x: (index % 2) * 250 + 20,
+          y: Math.floor(index / 2) * 220 + 20,
           rotation: (Math.random() - 0.5) * 10
         };
-      } else if (window.innerWidth <= 1200) {
+      } 
+      // Adapter pour tablette
+      else if (window.innerWidth <= 1200) {
         pos = {
-          x: (index % 3) * 320 + Math.random() * 50,
-          y: Math.floor(index / 3) * 250 + Math.random() * 40,
+          x: (index % 3) * 310 + 20,
+          y: Math.floor(index / 3) * 250 + 20,
           rotation: (Math.random() - 0.5) * 8
         };
+      }
+      // Pour grand écran, s'assurer que tout reste visible
+      else {
+        // Si la carte sort de l'écran, on la repositionne
+        if (pos.x + 280 > containerWidth) {
+          pos.x = containerWidth - 300;
+        }
       }
       
       card.dataset.baseX = pos.x;
       card.dataset.baseY = pos.y;
       card.dataset.rotation = pos.rotation;
-      
-      console.log(`Carte ${index} positionnée à:`, pos); // Debug
+      card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
     });
   }
 
   positionCards();
-
-  let frameCount = 0;
-
-  // Animation de flottement - AMPLIFIÉE POUR TEST
-  function animate() {
-    frameCount++;
-    const time = Date.now() / 1500; // Un peu plus rapide pour le test
-    
-    cards.forEach((card, index) => {
-      if (!card.classList.contains('dragging')) {
-        const baseX = parseFloat(card.dataset.baseX);
-        const baseY = parseFloat(card.dataset.baseY);
-        const rotation = parseFloat(card.dataset.rotation);
-        
-        // Mouvement de flottement AMPLIFIÉ pour être bien visible
-        const floatX = Math.sin(time * 0.5 + index) * 5; // Augmenté à 5px
-        const floatY = Math.cos(time * 0.4 + index) * 5; // Augmenté à 5px
-        
-        const newTransform = `translate(${baseX + floatX}px, ${baseY + floatY}px) rotate(${rotation}deg)`;
-        card.style.transform = newTransform;
-        
-        // Debug toutes les 60 frames (environ 1 seconde)
-        if (frameCount % 60 === 0 && index === 0) {
-          console.log('Animation carte 0:', newTransform);
-        }
-      }
-    });
-    
-    requestAnimationFrame(animate);
-  }
-
-  // Démarrer l'animation
-  console.log('Démarrage de l\'animation'); // Debug
-  animate();
 
   let isDragging = false;
   let currentCard = null;
@@ -475,7 +445,6 @@
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
 
-    // Si le mouvement dépasse 10px, on considère que c'est un drag
     if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
       if (!hasMoved) {
         hasMoved = true;
@@ -484,16 +453,13 @@
       
       e.preventDefault();
 
-      // Calculer la nouvelle position
       let newX = initialX + deltaX;
       let newY = initialY + deltaY;
 
-      // Obtenir les dimensions
       const containerRect = container.getBoundingClientRect();
       const cardWidth = currentCard.offsetWidth;
       const cardHeight = currentCard.offsetHeight;
 
-      // Limiter les positions pour rester dans le conteneur
       newX = Math.max(0, Math.min(newX, containerRect.width - cardWidth));
       newY = Math.max(0, Math.min(newY, containerRect.height - cardHeight));
 
@@ -505,7 +471,6 @@
   function handleEnd(e) {
     if (!isDragging || !currentCard) return;
 
-    // Si on n'a pas bougé, c'est un clic - laisser le lien fonctionner
     if (!hasMoved) {
       cards.forEach(c => c.classList.remove('dimmed'));
       isDragging = false;
@@ -513,14 +478,12 @@
       return;
     }
 
-    // Sinon c'était un drag
     e.preventDefault();
     
     const touch = e.type.includes('touch') ? e.changedTouches[0] : e;
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
 
-    // Calculer et limiter la position finale
     let newX = initialX + deltaX;
     let newY = initialY + deltaY;
 
@@ -531,7 +494,6 @@
     newX = Math.max(0, Math.min(newX, containerRect.width - cardWidth));
     newY = Math.max(0, Math.min(newY, containerRect.height - cardHeight));
 
-    // Mettre à jour la position de base
     currentCard.dataset.baseX = newX;
     currentCard.dataset.baseY = newY;
 
@@ -544,7 +506,6 @@
 
   // Event listeners
   cards.forEach((card) => {
-    // PC
     card.addEventListener('mousedown', (e) => {
       e.preventDefault();
       handleStart(e, card);
@@ -566,14 +527,12 @@
       }
     });
 
-    // Permettre le clic sur PC
     card.addEventListener('click', (e) => {
       if (hasMoved) {
         e.preventDefault();
       }
     });
 
-    // Mobile
     card.addEventListener('touchstart', (e) => {
       handleStart(e, card);
     }, { passive: true });
@@ -585,7 +544,6 @@
   document.addEventListener('touchmove', handleMove, { passive: false });
   document.addEventListener('touchend', handleEnd);
 
-  // Responsive
   window.addEventListener('resize', () => {
     positionCards();
   });
