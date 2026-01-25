@@ -381,17 +381,14 @@
     { x: 1440, y: 280, rotation: 3 }
   ];
 
-  // Animation de flottement PLUS LENTE et optimisée
-  const floatData = [];
-  
+  // Animation de flottement
   function animateFloat() {
-    const time = Date.now() / 2000; // Division par 2000 au lieu de 1000 = 2x plus lent
+    const time = Date.now() / 2000;
     
     cards.forEach((card, index) => {
       if (!card.classList.contains('dragging')) {
-        // Mouvement encore plus subtil et lent
-        const offsetX = Math.sin(time * 0.5 + index) * 2; // Réduit à 2px
-        const offsetY = Math.cos(time * 0.4 + index) * 2; // Réduit à 2px
+        const offsetX = Math.sin(time * 0.5 + index) * 2;
+        const offsetY = Math.cos(time * 0.4 + index) * 2;
         
         const baseX = parseFloat(card.dataset.x) || 0;
         const baseY = parseFloat(card.dataset.y) || 0;
@@ -408,7 +405,6 @@
   cards.forEach((card, index) => {
     let pos = initialPositions[index];
     
-    // Adapter les positions sur mobile
     if (window.innerWidth <= 768) {
       pos = {
         x: (index % 2) * 260 + Math.random() * 40,
@@ -430,20 +426,20 @@
     card.dataset.y = pos.y;
   });
 
-  // Démarrer l'animation une seule fois
   animateFloat();
 
   let isDragging = false;
   let currentCard = null;
   let startX, startY;
   let initialX, initialY;
+  let hasMoved = false;
+  let touchStartTime = 0;
 
-  // Gestion du drag
   function handleStart(e, card) {
-    e.preventDefault();
     isDragging = true;
     currentCard = card;
-    card.classList.add('dragging');
+    hasMoved = false;
+    touchStartTime = Date.now();
 
     const touch = e.type.includes('touch') ? e.touches[0] : e;
     startX = touch.clientX;
@@ -451,7 +447,6 @@
     initialX = parseFloat(card.dataset.x);
     initialY = parseFloat(card.dataset.y);
 
-    // Grisage des autres cartes
     cards.forEach(c => {
       if (c !== card) {
         c.classList.add('dimmed');
@@ -461,43 +456,64 @@
 
   function handleMove(e) {
     if (!isDragging || !currentCard) return;
-    e.preventDefault();
 
     const touch = e.type.includes('touch') ? e.touches[0] : e;
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
 
-    const newX = initialX + deltaX;
-    const newY = initialY + deltaY;
+    // Si le mouvement dépasse 5px, on considère que c'est un drag
+    if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+      hasMoved = true;
+      e.preventDefault();
+      currentCard.classList.add('dragging');
 
-    const rotation = initialPositions[currentCard.dataset.index]?.rotation || 0;
-    currentCard.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
+      const newX = initialX + deltaX;
+      const newY = initialY + deltaY;
+      const rotation = initialPositions[currentCard.dataset.index]?.rotation || 0;
+      
+      currentCard.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
+    }
   }
 
   function handleEnd(e) {
     if (!isDragging || !currentCard) return;
 
-    const touch = e.type.includes('touch') ? e.changedTouches[0] : e;
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
+    const touchDuration = Date.now() - touchStartTime;
 
-    currentCard.dataset.x = initialX + deltaX;
-    currentCard.dataset.y = initialY + deltaY;
+    // Si on n'a pas bougé ET que le toucher était court (< 300ms), c'est un clic
+    if (!hasMoved && touchDuration < 300) {
+      // Laisser le lien s'ouvrir naturellement
+      cards.forEach(c => c.classList.remove('dimmed'));
+      currentCard.classList.remove('dragging');
+      isDragging = false;
+      currentCard = null;
+      return;
+    }
+
+    // Sinon c'était un drag, on empêche le clic
+    if (hasMoved) {
+      e.preventDefault();
+      
+      const touch = e.type.includes('touch') ? e.changedTouches[0] : e;
+      const deltaX = touch.clientX - startX;
+      const deltaY = touch.clientY - startY;
+
+      currentCard.dataset.x = initialX + deltaX;
+      currentCard.dataset.y = initialY + deltaY;
+    }
 
     currentCard.classList.remove('dragging');
-    
-    // Retirer le grisage
     cards.forEach(c => c.classList.remove('dimmed'));
 
     isDragging = false;
     currentCard = null;
   }
 
-  // Event listeners pour PC
+  // Event listeners
   cards.forEach((card, index) => {
+    // PC
     card.addEventListener('mousedown', (e) => handleStart(e, card));
     
-    // Hover effect
     card.addEventListener('mouseenter', () => {
       if (!isDragging) {
         cards.forEach(c => {
@@ -514,17 +530,17 @@
       }
     });
 
-    // Event listeners pour mobile
-    card.addEventListener('touchstart', (e) => handleStart(e, card), { passive: false });
+    // Mobile
+    card.addEventListener('touchstart', (e) => handleStart(e, card), { passive: true });
   });
 
   document.addEventListener('mousemove', handleMove);
   document.addEventListener('mouseup', handleEnd);
   
   document.addEventListener('touchmove', handleMove, { passive: false });
-  document.addEventListener('touchend', handleEnd);
+  document.addEventListener('touchend', handleEnd, { passive: false });
 
-  // Adapter les positions au redimensionnement
+  // Responsive
   window.addEventListener('resize', () => {
     cards.forEach((card, index) => {
       let pos;
