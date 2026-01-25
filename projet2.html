@@ -134,8 +134,8 @@
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: filter 0.3s ease;
       z-index: 1;
+      /* PAS de transition ici pour ne pas bloquer l'animation */
     }
 
     .card.dragging {
@@ -145,7 +145,10 @@
 
     .card.dimmed {
       filter: brightness(0.5) saturate(0) blur(5px);
-      transform: scale(0.94);
+    }
+
+    .card.dimmed:not(.dragging) {
+      transform: scale(0.94) !important;
     }
 
     .card-background {
@@ -357,8 +360,12 @@
 </footer>
 
 <script>
+  console.log('Script démarré'); // Pour vérifier que le script fonctionne
+  
   const cards = document.querySelectorAll('.card');
   const container = document.getElementById('cardContainer');
+  
+  console.log('Nombre de cartes trouvées:', cards.length); // Debug
   
   // Positions initiales désordonnées
   const initialPositions = [
@@ -396,14 +403,19 @@
       card.dataset.baseX = pos.x;
       card.dataset.baseY = pos.y;
       card.dataset.rotation = pos.rotation;
+      
+      console.log(`Carte ${index} positionnée à:`, pos); // Debug
     });
   }
 
   positionCards();
 
-  // Animation de flottement - SIMPLIFIÉ ET VISIBLE
+  let frameCount = 0;
+
+  // Animation de flottement - AMPLIFIÉE POUR TEST
   function animate() {
-    const time = Date.now() / 2000; // Vitesse lente
+    frameCount++;
+    const time = Date.now() / 1500; // Un peu plus rapide pour le test
     
     cards.forEach((card, index) => {
       if (!card.classList.contains('dragging')) {
@@ -411,11 +423,17 @@
         const baseY = parseFloat(card.dataset.baseY);
         const rotation = parseFloat(card.dataset.rotation);
         
-        // Mouvement de flottement
-        const floatX = Math.sin(time * 0.5 + index) * 3;
-        const floatY = Math.cos(time * 0.4 + index) * 3;
+        // Mouvement de flottement AMPLIFIÉ pour être bien visible
+        const floatX = Math.sin(time * 0.5 + index) * 5; // Augmenté à 5px
+        const floatY = Math.cos(time * 0.4 + index) * 5; // Augmenté à 5px
         
-        card.style.transform = `translate(${baseX + floatX}px, ${baseY + floatY}px) rotate(${rotation}deg)`;
+        const newTransform = `translate(${baseX + floatX}px, ${baseY + floatY}px) rotate(${rotation}deg)`;
+        card.style.transform = newTransform;
+        
+        // Debug toutes les 60 frames (environ 1 seconde)
+        if (frameCount % 60 === 0 && index === 0) {
+          console.log('Animation carte 0:', newTransform);
+        }
       }
     });
     
@@ -423,6 +441,7 @@
   }
 
   // Démarrer l'animation
+  console.log('Démarrage de l\'animation'); // Debug
   animate();
 
   let isDragging = false;
