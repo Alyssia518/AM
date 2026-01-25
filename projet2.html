@@ -136,6 +136,7 @@
       display: block;
       transition: filter 0.3s ease, transform 0.3s ease;
       z-index: 1;
+      will-change: transform;
     }
 
     .card.dragging {
@@ -366,7 +367,7 @@
   const cards = document.querySelectorAll('.card');
   const container = document.getElementById('cardContainer');
   
-  // Positions initiales désordonnées avec animation de flottement
+  // Positions initiales désordonnées
   const initialPositions = [
     { x: 50, y: 20, rotation: -5 },
     { x: 380, y: 80, rotation: 3 },
@@ -380,32 +381,31 @@
     { x: 1440, y: 280, rotation: 3 }
   ];
 
-  // Animation de flottement
-  function animateFloat(card, index) {
-    const floatAnimation = () => {
+  // Animation de flottement PLUS LENTE et optimisée
+  const floatData = [];
+  
+  function animateFloat() {
+    const time = Date.now() / 2000; // Division par 2000 au lieu de 1000 = 2x plus lent
+    
+    cards.forEach((card, index) => {
       if (!card.classList.contains('dragging')) {
-        const time = Date.now() / 1000;
-        const offsetX = Math.sin(time + index) * 3;
-        const offsetY = Math.cos(time * 0.8 + index) * 3;
-        const currentTransform = card.style.transform;
+        // Mouvement encore plus subtil et lent
+        const offsetX = Math.sin(time * 0.5 + index) * 2; // Réduit à 2px
+        const offsetY = Math.cos(time * 0.4 + index) * 2; // Réduit à 2px
         
-        if (currentTransform.includes('translate')) {
-          const matches = currentTransform.match(/translate\(([^,]+),\s*([^)]+)\)/);
-          if (matches) {
-            const baseX = parseFloat(matches[1]);
-            const baseY = parseFloat(matches[2]);
-            card.style.transform = `translate(${baseX + offsetX}px, ${baseY + offsetY}px) rotate(${initialPositions[index].rotation}deg)`;
-          }
-        }
+        const baseX = parseFloat(card.dataset.x) || 0;
+        const baseY = parseFloat(card.dataset.y) || 0;
+        const rotation = initialPositions[index]?.rotation || 0;
+        
+        card.style.transform = `translate(${baseX + offsetX}px, ${baseY + offsetY}px) rotate(${rotation}deg)`;
       }
-      requestAnimationFrame(floatAnimation);
-    };
-    floatAnimation();
+    });
+    
+    requestAnimationFrame(animateFloat);
   }
 
-  // Positionner les cartes initialement de façon désordonnée
+  // Positionner les cartes initialement
   cards.forEach((card, index) => {
-    const containerWidth = container.offsetWidth;
     let pos = initialPositions[index];
     
     // Adapter les positions sur mobile
@@ -428,9 +428,10 @@
     card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
     card.dataset.x = pos.x;
     card.dataset.y = pos.y;
-    
-    animateFloat(card, index);
   });
+
+  // Démarrer l'animation une seule fois
+  animateFloat();
 
   let isDragging = false;
   let currentCard = null;
