@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -118,36 +117,37 @@
       position: relative;
     }
 
+    /* GRILLE FIXE */
     .card-container {
-      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 280px);
+      grid-template-rows: repeat(2, 220px);
+      gap: 30px;
+      justify-content: center;
       width: 100%;
-      min-height: 600px;
-      flex: 1;
     }
 
     .card {
-      position: absolute;
       width: 280px;
       height: 220px;
       border-radius: 6px;
       overflow: hidden;
-      cursor: grab;
+      cursor: pointer;
       text-decoration: none;
       color: inherit;
       display: block;
       transition: filter 0.3s ease, transform 0.3s ease;
-      z-index: 1;
     }
 
-    .card.dragging {
-      cursor: grabbing;
-      z-index: 100;
-      transition: none;
-    }
-
-    .card.dimmed {
+    .card-container:hover .card {
       filter: brightness(0.5) saturate(0) blur(5px);
       transform: scale(0.94);
+    }
+
+    .card-container:hover .card:hover {
+      filter: none;
+      transform: scale(1);
+      z-index: 2;
     }
 
     .card-background {
@@ -179,6 +179,37 @@
       pointer-events: none;
     }
 
+    /* Rendre chaque card en position relative pour que card-category fonctionne */
+    .card {
+      position: relative;
+    }
+
+    @media (max-width: 1500px) {
+      .card-container {
+        grid-template-columns: repeat(4, 280px);
+        grid-template-rows: repeat(3, 220px);
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .card-container {
+        grid-template-columns: repeat(3, 280px);
+        grid-template-rows: repeat(4, 220px);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .card-container {
+        grid-template-columns: repeat(2, 240px);
+        grid-template-rows: auto;
+      }
+
+      .card {
+        width: 240px;
+        height: 190px;
+      }
+    }
+
     @media (max-width: 768px) {
       body {
         padding-top: 50px;
@@ -206,24 +237,24 @@
       nav a[href="apropos.html"] {
         padding-left: 35px;
       }
-
-      .card {
-        width: 240px;
-        height: 190px;
-      }
     }
 
     @media (max-width: 600px) {
       main {
         padding: 10px 20px 40px;
       }
-      
+
       nav a {
         margin-left: 15px;
       }
 
+      .card-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
       .card {
-        width: 200px;
+        width: 100%;
         height: 160px;
       }
     }
@@ -306,43 +337,43 @@
 <main>
   <h1>Projets</h1>
   <div class="card-container" id="cardContainer">
-    <a href="portfolio1.html" class="card" data-index="0">
+    <a href="portfolio1.html" class="card">
       <div class="card-background" style="background-image: url('img/photoanaglyphe.jpg');"></div>
       <div class="card-category">Flyer cinéma en anaglyphe</div>
     </a>
-    <a href="portfolio2.html" class="card" data-index="1">
+    <a href="portfolio2.html" class="card">
       <div class="card-background" style="background-image: url('img/uno/mockup4.jpg');"></div>
       <div class="card-category">Refonte du jeu UNO</div>
     </a>
-    <a href="portfolio3.html" class="card" data-index="2">
+    <a href="portfolio3.html" class="card">
       <div class="card-background" style="background-image: url('img/pirate/pirate1.png');"></div>
       <div class="card-category">Salle pirate</div>
     </a>
-    <a href="portfolio4.html" class="card" data-index="3">
+    <a href="portfolio4.html" class="card">
       <div class="card-background" style="background-image: url('img/titre_barbebleue.jpg');"></div>
       <div class="card-category">Animatique Barbe Bleue</div>
     </a>
-    <a href="portfolio5.html" class="card" data-index="4">
+    <a href="portfolio5.html" class="card">
       <div class="card-background" style="background-image: url('img/amadahy/mockup3.jpg');"></div>
       <div class="card-category">Hypothèses de logo</div>
     </a>
-    <a href="portfolio6.html" class="card" data-index="5">
+    <a href="portfolio6.html" class="card">
       <div class="card-background" style="background-image: url('img/ani.jpg');"></div>
       <div class="card-category">Illustrations animées</div>
     </a>
-    <a href="portfolio7.html" class="card" data-index="6">
+    <a href="portfolio7.html" class="card">
       <div class="card-background" style="background-image: url('img/lampetexture-min.png');"></div>
       <div class="card-category">Exercice texture</div>
     </a>
-    <a href="portfolio8.html" class="card" data-index="7">
+    <a href="portfolio8.html" class="card">
       <div class="card-background" style="background-image: url('img/mockupam.png');"></div>
-      <div class="card-category"> Identitée visuelle AM</div>
+      <div class="card-category">Identitée visuelle AM</div>
     </a>
-    <a href="portfolio9.html" class="card" data-index="8">
+    <a href="portfolio9.html" class="card">
       <div class="card-background" style="background-image: url('img/tshirt_maquette2.png'); transform: scaleX(-1);"></div>
       <div class="card-category">T-shirt 3D</div>
     </a>
-    <a href="portfolio10.html" class="card" data-index="9">
+    <a href="portfolio10.html" class="card">
       <div class="card-background" style="background-image: url('img/lyonstreetfood.png');"></div>
       <div class="card-category">Animation Lyon Streetfood</div>
     </a>
@@ -363,194 +394,5 @@
   </div>
 </footer>
 
-<script>
-  const cards = document.querySelectorAll('.card');
-  const container = document.getElementById('cardContainer');
-  
-  // Positions initiales désordonnées avec animation de flottement
-  const initialPositions = [
-    { x: 50, y: 20, rotation: -5 },
-    { x: 380, y: 80, rotation: 3 },
-    { x: 710, y: 10, rotation: -2 },
-    { x: 1040, y: 60, rotation: 4 },
-    { x: 1370, y: 30, rotation: -3 },
-    { x: 120, y: 280, rotation: 2 },
-    { x: 450, y: 320, rotation: -4 },
-    { x: 780, y: 270, rotation: 5 },
-    { x: 1110, y: 300, rotation: -2 },
-    { x: 1440, y: 280, rotation: 3 }
-  ];
-
-  // Animation de flottement
-  function animateFloat(card, index) {
-    const floatAnimation = () => {
-      if (!card.classList.contains('dragging')) {
-        const time = Date.now() / 1000;
-        const offsetX = Math.sin(time + index) * 3;
-        const offsetY = Math.cos(time * 0.8 + index) * 3;
-        const currentTransform = card.style.transform;
-        
-        if (currentTransform.includes('translate')) {
-          const matches = currentTransform.match(/translate\(([^,]+),\s*([^)]+)\)/);
-          if (matches) {
-            const baseX = parseFloat(matches[1]);
-            const baseY = parseFloat(matches[2]);
-            card.style.transform = `translate(${baseX + offsetX}px, ${baseY + offsetY}px) rotate(${initialPositions[index].rotation}deg)`;
-          }
-        }
-      }
-      requestAnimationFrame(floatAnimation);
-    };
-    floatAnimation();
-  }
-
-  // Positionner les cartes initialement de façon désordonnée
-  cards.forEach((card, index) => {
-    const containerWidth = container.offsetWidth;
-    let pos = initialPositions[index];
-    
-    // Adapter les positions sur mobile
-    if (window.innerWidth <= 768) {
-      pos = {
-        x: (index % 2) * 260 + Math.random() * 40,
-        y: Math.floor(index / 2) * 220 + Math.random() * 30,
-        rotation: (Math.random() - 0.5) * 10
-      };
-    } else if (window.innerWidth <= 1200) {
-      pos = {
-        x: (index % 3) * 320 + Math.random() * 50,
-        y: Math.floor(index / 3) * 250 + Math.random() * 40,
-        rotation: (Math.random() - 0.5) * 8
-      };
-    }
-    
-    card.style.left = '0px';
-    card.style.top = '0px';
-    card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
-    card.dataset.x = pos.x;
-    card.dataset.y = pos.y;
-    
-    animateFloat(card, index);
-  });
-
-  let isDragging = false;
-  let currentCard = null;
-  let startX, startY;
-  let initialX, initialY;
-
-  // Gestion du drag
-  function handleStart(e, card) {
-    e.preventDefault();
-    isDragging = true;
-    currentCard = card;
-    card.classList.add('dragging');
-
-    const touch = e.type.includes('touch') ? e.touches[0] : e;
-    startX = touch.clientX;
-    startY = touch.clientY;
-    initialX = parseFloat(card.dataset.x);
-    initialY = parseFloat(card.dataset.y);
-
-    // Grisage des autres cartes
-    cards.forEach(c => {
-      if (c !== card) {
-        c.classList.add('dimmed');
-      }
-    });
-  }
-
-  function handleMove(e) {
-    if (!isDragging || !currentCard) return;
-    e.preventDefault();
-
-    const touch = e.type.includes('touch') ? e.touches[0] : e;
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
-
-    const newX = initialX + deltaX;
-    const newY = initialY + deltaY;
-
-    const rotation = initialPositions[currentCard.dataset.index]?.rotation || 0;
-    currentCard.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
-  }
-
-  function handleEnd(e) {
-    if (!isDragging || !currentCard) return;
-
-    const touch = e.type.includes('touch') ? e.changedTouches[0] : e;
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
-
-    currentCard.dataset.x = initialX + deltaX;
-    currentCard.dataset.y = initialY + deltaY;
-
-    currentCard.classList.remove('dragging');
-    
-    // Retirer le grisage
-    cards.forEach(c => c.classList.remove('dimmed'));
-
-    isDragging = false;
-    currentCard = null;
-  }
-
-  // Event listeners pour PC
-  cards.forEach((card, index) => {
-    card.addEventListener('mousedown', (e) => handleStart(e, card));
-    
-    // Hover effect
-    card.addEventListener('mouseenter', () => {
-      if (!isDragging) {
-        cards.forEach(c => {
-          if (c !== card) {
-            c.classList.add('dimmed');
-          }
-        });
-      }
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      if (!isDragging) {
-        cards.forEach(c => c.classList.remove('dimmed'));
-      }
-    });
-
-    // Event listeners pour mobile
-    card.addEventListener('touchstart', (e) => handleStart(e, card), { passive: false });
-  });
-
-  document.addEventListener('mousemove', handleMove);
-  document.addEventListener('mouseup', handleEnd);
-  
-  document.addEventListener('touchmove', handleMove, { passive: false });
-  document.addEventListener('touchend', handleEnd);
-
-  // Adapter les positions au redimensionnement
-  window.addEventListener('resize', () => {
-    cards.forEach((card, index) => {
-      let pos;
-      if (window.innerWidth <= 768) {
-        pos = {
-          x: (index % 2) * 260 + Math.random() * 40,
-          y: Math.floor(index / 2) * 220 + Math.random() * 30,
-          rotation: (Math.random() - 0.5) * 10
-        };
-      } else if (window.innerWidth <= 1200) {
-        pos = {
-          x: (index % 3) * 320 + Math.random() * 50,
-          y: Math.floor(index / 3) * 250 + Math.random() * 40,
-          rotation: (Math.random() - 0.5) * 8
-        };
-      } else {
-        pos = initialPositions[index];
-      }
-      
-      card.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${pos.rotation}deg)`;
-      card.dataset.x = pos.x;
-      card.dataset.y = pos.y;
-    });
-  });
-</script>
-
 </body>
 </html>
-
