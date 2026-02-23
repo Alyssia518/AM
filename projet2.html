@@ -37,6 +37,13 @@
       display: flex;
       flex-direction: column;
       padding-top: 60px;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
     }
 
     header {
@@ -125,6 +132,8 @@
       gap: 30px;
       justify-content: center;
       width: 100%;
+      padding: 10px 60px 20px;
+      box-sizing: border-box;
     }
 
     .card {
