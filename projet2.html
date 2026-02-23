@@ -12,21 +12,11 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow-x: hidden;
-    }
-
     html {
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
-
-    html::-webkit-scrollbar {
-      display: none;
-    }
+    html::-webkit-scrollbar { display: none; }
 
     body {
       font-family: 'Marine Up', sans-serif;
@@ -38,17 +28,14 @@
       padding-top: 60px;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      overflow-x: hidden;
     }
+    body::-webkit-scrollbar { display: none; }
 
-    body::-webkit-scrollbar {
-      display: none;
-    }
-
+    /* ── HEADER ── */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       background: #ffffff;
       z-index: 1000;
       padding: 10px 40px;
@@ -59,12 +46,6 @@
       overflow: hidden;
     }
 
-    header .logo {
-      font-weight: 500;
-      font-size: 1.6rem;
-      letter-spacing: 1.5px;
-    }
-
     header .logo img {
       height: 40px;
       width: auto;
@@ -72,43 +53,35 @@
     }
 
     nav a {
-      color: #000000;
+      color: #000;
       margin-left: 30px;
       text-decoration: none;
       font-weight: 300;
       position: relative;
-      transition: color 0.3s ease;
       display: inline-block;
     }
 
-    nav a:hover {
-      color: #000000;
-    }
-
     nav a[href="apropos.html"] {
-      position: relative;
       padding-left: 40px;
     }
-
     nav a[href="apropos.html"]::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 0;
+      top: 50%; left: 0;
       transform: translateY(-50%);
-      width: 35px;
-      height: 35px;
+      width: 35px; height: 35px;
       background-image: url('img/aproposcoté.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
     }
 
+    /* ── MAIN ── */
     main {
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 10px 40px 40px;
+      padding: 10px 60px 60px;
       background: url('img/banniere linkedin.jpg') no-repeat center top;
       background-size: cover;
     }
@@ -118,34 +91,36 @@
       font-weight: 700;
       text-align: center;
       margin: 20px 0 50px;
-      color: #000000;
-      position: relative;
+      color: #000;
     }
 
-    /* GRILLE FIXE */
+    /* ── GRILLE ── */
     .card-container {
       display: grid;
-      grid-template-columns: repeat(5, 280px);
-      gap: 30px;
-      justify-content: center;
+      /* auto-fill : remplit le max de colonnes possible sans dépasser */
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
       width: 100%;
     }
 
+    /* ── CARTE ── */
     .card {
       position: relative;
-      width: 280px;
-      height: 220px;
+      aspect-ratio: 4 / 3;
       border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
       display: block;
+      /* par défaut : normal */
       transition: filter 0.3s ease, transform 0.3s ease;
     }
 
-    .card:hover {
-      z-index: 2;
+    /* quand une carte a la classe "dimmed" → gris flouté */
+    .card.dimmed {
+      filter: brightness(0.45) saturate(0) blur(4px);
+      transform: scale(0.95);
     }
 
     .card-background {
@@ -155,130 +130,59 @@
       background-position: center;
       background-repeat: no-repeat;
       transition: transform 0.5s ease;
-      background-color: rgba(255, 255, 255, 0.1);
       pointer-events: none;
-      transform: translateZ(0);
-      backface-visibility: hidden;
     }
 
     .card:hover .card-background {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
 
     .card-category {
       position: absolute;
       bottom: 0;
       width: 100%;
-      padding: 28px 14px 12px;
+      padding: 30px 14px 12px;
       background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
-      text-align: left;
       font-family: 'Montserrat', sans-serif;
       font-weight: 400;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #fff;
       pointer-events: none;
     }
 
-    /* Grand écran : 5 colonnes, marge visible aux bords */
-    @media (min-width: 1601px) {
-      .card-container {
-        grid-template-columns: repeat(5, 280px);
-        padding: 0 60px;
-      }
-    }
-
-    @media (max-width: 1600px) {
-      .card-container {
-        grid-template-columns: repeat(4, 280px);
-        padding: 0 60px;
-      }
-    }
-
-    @media (max-width: 1260px) {
-      .card-container {
-        grid-template-columns: repeat(3, 280px);
-        padding: 0 60px;
-      }
-    }
-
-    @media (max-width: 980px) {
-      .card-container {
-        grid-template-columns: repeat(2, 280px);
-        padding: 0 40px;
-      }
-    }
-
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      body {
-        padding-top: 50px;
-      }
-
-      header {
-        padding: 8px 20px;
-        height: 50px;
-      }
-
-      header .logo img {
-        height: 30px;
-      }
-
-      nav a {
-        margin-left: 20px;
-        font-size: 0.9rem;
-      }
-
-      nav a[href="apropos.html"]::before {
-        width: 30px;
-        height: 30px;
-      }
-
-      nav a[href="apropos.html"] {
-        padding-left: 35px;
-      }
-
-      main {
-        padding: 10px 20px 40px;
-      }
-
+      body { padding-top: 50px; }
+      header { padding: 8px 20px; height: 50px; }
+      header .logo img { height: 30px; }
+      nav a { margin-left: 20px; font-size: 0.9rem; }
+      nav a[href="apropos.html"]::before { width: 28px; height: 28px; }
+      nav a[href="apropos.html"] { padding-left: 34px; }
+      main { padding: 10px 20px 40px; }
+      h1 { font-size: 1.8rem; margin-bottom: 30px; }
       .card-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 0;
+        gap: 14px;
       }
-
-      .card {
-        width: 100%;
-        height: 180px;
-      }
-
-      .card-category {
-        font-size: 0.65rem;
-        letter-spacing: 0.08em;
-        padding: 20px 10px 8px;
-      }
+      .card-category { font-size: 0.6rem; letter-spacing: 0.08em; }
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 400px) {
       .card-container {
         grid-template-columns: 1fr;
       }
-
-      .card {
-        height: 200px;
-      }
     }
 
+    /* ── FOOTER ── */
     footer {
       background: transparent;
-      padding: 40px 0 10px 0;
+      padding: 40px 0 10px;
       text-align: center;
       font-size: 0.9rem;
-      color: #000000;
+      color: #000;
       font-weight: 300;
-      z-index: 2;
-      position: relative;
       line-height: 1.8;
     }
 
@@ -286,41 +190,23 @@
       display: flex;
       justify-content: center;
       gap: 15px;
-      flex-wrap: nowrap;
-      flex-direction: row;
+      flex-wrap: wrap;
       margin-bottom: 10px;
     }
 
-    .contact-item {
-      margin-bottom: 0;
-      font-size: 1rem;
-    }
-
     .contact-item a {
-      color: #000000;
+      color: #000;
       text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .contact-item a:hover {
-      color: #000000;
+      font-size: 1rem;
     }
 
     .footer-bottom {
       font-size: 0.8rem;
-      color: #000000;
     }
 
     @media (max-width: 600px) {
-      footer {
-        padding: 20px 15px;
-        font-size: 0.9rem;
-      }
-
-      .footer-content {
-        flex-direction: column;
-        gap: 5px;
-      }
+      footer { padding: 20px 15px; }
+      .footer-content { flex-direction: column; gap: 5px; }
     }
   </style>
 </head>
@@ -391,10 +277,24 @@
       <a href="tel:+33613662129">06 13 66 21 29</a>
     </div>
   </div>
-  <div class="footer-bottom">
-    © 2025 Alyssia MATTIONI
-  </div>
+  <div class="footer-bottom">© 2025 Alyssia MATTIONI</div>
 </footer>
+
+<script>
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      cards.forEach(c => {
+        if (c !== card) c.classList.add('dimmed');
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      cards.forEach(c => c.classList.remove('dimmed'));
+    });
+  });
+</script>
 
 </body>
 </html>
