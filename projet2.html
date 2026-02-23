@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio Projets</title>
+  <link rel="icon" type="image/png" href="img/logo insta.png" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -97,7 +98,6 @@
     /* ── GRILLE ── */
     .card-container {
       display: grid;
-      /* auto-fill : remplit le max de colonnes possible sans dépasser */
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 24px;
       width: 100%;
@@ -113,11 +113,9 @@
       text-decoration: none;
       color: inherit;
       display: block;
-      /* par défaut : normal */
       transition: filter 0.3s ease, transform 0.3s ease;
     }
 
-    /* quand une carte a la classe "dimmed" → gris flouté */
     .card.dimmed {
       filter: brightness(0.45) saturate(0) blur(4px);
       transform: scale(0.95);
@@ -231,7 +229,7 @@
     </a>
     <a href="portfolio2.html" class="card">
       <div class="card-background" style="background-image: url('img/uno/mockup4.jpg');"></div>
-      <div class="card-category">Refonte d’Identité Visuelle</div>
+      <div class="card-category">Refonte d'Identité Visuelle</div>
     </a>
     <a href="portfolio3.html" class="card">
       <div class="card-background" style="background-image: url('img/pirate/pirate1.png');"></div>
@@ -298,6 +296,3 @@
 
 </body>
 </html>
-
-
-
