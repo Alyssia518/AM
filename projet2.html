@@ -19,14 +19,13 @@
       overflow-x: hidden;
     }
 
-    /* Masquer la barre de défilement */
     html {
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE et Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     html::-webkit-scrollbar {
-      display: none; /* Chrome, Safari et Opera */
+      display: none;
     }
 
     body {
@@ -110,7 +109,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 10px 80px 60px;
+      padding: 10px 0 60px;
       background: url('img/banniere linkedin.jpg') no-repeat center top;
       background-size: cover;
     }
@@ -124,19 +123,18 @@
       position: relative;
     }
 
-    /* GRILLE FIXE */
+    /* GRILLE — padding uniquement pour créer la marge sur les bords */
     .card-container {
       display: grid;
       grid-template-columns: repeat(5, 280px);
-      grid-template-rows: repeat(2, 220px);
       gap: 30px;
       justify-content: center;
       width: 100%;
-      padding: 10px 60px 20px;
-      box-sizing: border-box;
+      padding: 0 60px 20px;
     }
 
     .card {
+      position: relative;
       width: 280px;
       height: 220px;
       border-radius: 6px;
@@ -148,6 +146,7 @@
       transition: filter 0.3s ease, transform 0.3s ease;
     }
 
+    /* Animation hover : les autres grissent, celle survolée reste nette */
     .card-container:hover .card {
       filter: brightness(0.5) saturate(0) blur(5px);
       transform: scale(0.94);
@@ -168,6 +167,8 @@
       transition: transform 0.5s ease;
       background-color: rgba(255, 255, 255, 0.1);
       pointer-events: none;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .card:hover .card-background {
@@ -190,31 +191,23 @@
       pointer-events: none;
     }
 
-    /* Rendre chaque card en position relative pour que card-category fonctionne */
-    .card {
-      position: relative;
-    }
-
-    @media (max-width: 1500px) {
+    @media (max-width: 1600px) {
       .card-container {
         grid-template-columns: repeat(4, 280px);
-        grid-template-rows: repeat(3, 220px);
       }
     }
 
     @media (max-width: 1200px) {
       .card-container {
         grid-template-columns: repeat(3, 280px);
-        grid-template-rows: repeat(4, 220px);
       }
     }
 
     @media (max-width: 900px) {
       .card-container {
         grid-template-columns: repeat(2, 240px);
-        grid-template-rows: auto;
+        padding: 0 30px 20px;
       }
-
       .card {
         width: 240px;
         height: 190px;
@@ -225,26 +218,21 @@
       body {
         padding-top: 50px;
       }
-
       header {
         padding: 8px 20px;
         height: 50px;
       }
-
       header .logo img {
         height: 30px;
       }
-
       nav a {
         margin-left: 20px;
         font-size: 0.9rem;
       }
-
       nav a[href="apropos.html"]::before {
         width: 30px;
         height: 30px;
       }
-
       nav a[href="apropos.html"] {
         padding-left: 35px;
       }
@@ -252,19 +240,16 @@
 
     @media (max-width: 600px) {
       main {
-        padding: 10px 20px 40px;
+        padding: 10px 0 40px;
       }
-
-
       nav a {
         margin-left: 15px;
       }
-
       .card-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+        padding: 0 20px 20px;
       }
-
       .card {
         width: 100%;
         height: 160px;
@@ -317,20 +302,10 @@
         padding: 20px 15px;
         font-size: 0.9rem;
       }
-      
       .footer-content {
         flex-direction: column;
         gap: 5px;
       }
-    }
-
-    .card-background[style*="background-image"] {
-      background-color: transparent;
-    }
-
-    .card-background {
-      transform: translateZ(0);
-      backface-visibility: hidden;
     }
   </style>
 </head>
@@ -395,7 +370,16 @@
 <footer id="contact">
   <div class="footer-content">
     <div class="contact-item">
-      <a href="/cdn-cgi/l/email-protection#4c2d20353f3f252d62212d3838252322250c2b212d2520622f2321"><span class="__cf_email__" data-cfemail="583934212b2b31397635392c2c31373631183f35393134763b3735">[email&#160;protected]</span></a>
+      <a href="mailto:alyssia.mattioni@gmail.com">alyssia.mattioni@gmail.com</a>
     </div>
     <div class="contact-item">
-      <a href="tel
+      <a href="tel:+33613662129">06 13 66 21 29</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Alyssia MATTIONI
+  </div>
+</footer>
+
+</body>
+</html>
