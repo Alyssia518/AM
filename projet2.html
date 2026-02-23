@@ -36,7 +36,6 @@
       display: flex;
       flex-direction: column;
       padding-top: 60px;
-      overflow-y: scroll;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -109,7 +108,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 10px 0 60px;
+      padding: 10px 40px 40px;
       background: url('img/banniere linkedin.jpg') no-repeat center top;
       background-size: cover;
     }
@@ -123,14 +122,13 @@
       position: relative;
     }
 
-    /* GRILLE — padding uniquement pour créer la marge sur les bords */
+    /* GRILLE FIXE */
     .card-container {
       display: grid;
       grid-template-columns: repeat(5, 280px);
       gap: 30px;
       justify-content: center;
       width: 100%;
-      padding: 0 60px 20px;
     }
 
     .card {
@@ -146,15 +144,7 @@
       transition: filter 0.3s ease, transform 0.3s ease;
     }
 
-    /* Animation hover : les autres grissent, celle survolée reste nette */
-    .card-container:hover .card {
-      filter: brightness(0.5) saturate(0) blur(5px);
-      transform: scale(0.94);
-    }
-
-    .card-container:hover .card:hover {
-      filter: none;
-      transform: scale(1);
+    .card:hover {
       z-index: 2;
     }
 
@@ -191,26 +181,32 @@
       pointer-events: none;
     }
 
+    /* Grand écran : 5 colonnes, marge visible aux bords */
+    @media (min-width: 1601px) {
+      .card-container {
+        grid-template-columns: repeat(5, 280px);
+        padding: 0 60px;
+      }
+    }
+
     @media (max-width: 1600px) {
       .card-container {
         grid-template-columns: repeat(4, 280px);
+        padding: 0 60px;
       }
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1260px) {
       .card-container {
         grid-template-columns: repeat(3, 280px);
+        padding: 0 60px;
       }
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
       .card-container {
-        grid-template-columns: repeat(2, 240px);
-        padding: 0 30px 20px;
-      }
-      .card {
-        width: 240px;
-        height: 190px;
+        grid-template-columns: repeat(2, 280px);
+        padding: 0 40px;
       }
     }
 
@@ -218,41 +214,59 @@
       body {
         padding-top: 50px;
       }
+
       header {
         padding: 8px 20px;
         height: 50px;
       }
+
       header .logo img {
         height: 30px;
       }
+
       nav a {
         margin-left: 20px;
         font-size: 0.9rem;
       }
+
       nav a[href="apropos.html"]::before {
         width: 30px;
         height: 30px;
       }
+
       nav a[href="apropos.html"] {
         padding-left: 35px;
       }
-    }
 
-    @media (max-width: 600px) {
       main {
-        padding: 10px 0 40px;
+        padding: 10px 20px 40px;
       }
-      nav a {
-        margin-left: 15px;
-      }
+
       .card-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
-        padding: 0 20px 20px;
+        padding: 0;
       }
+
       .card {
         width: 100%;
-        height: 160px;
+        height: 180px;
+      }
+
+      .card-category {
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        padding: 20px 10px 8px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        height: 200px;
       }
     }
 
@@ -302,6 +316,7 @@
         padding: 20px 15px;
         font-size: 0.9rem;
       }
+
       .footer-content {
         flex-direction: column;
         gap: 5px;
