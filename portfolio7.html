@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lampe UV ACIDE</title>
+  <title>Flyer</title>
   <link rel="icon" type="image/png" href="img/logo perso.png" />
   <style>
     html, body {
@@ -13,8 +13,8 @@
 
     body {
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #27348b, #82368c);
-      color: white;
+      background: #ffffff;
+      color: black; /* ✅ texte global en noir */
       padding: 60px 30px;
       min-height: 100vh;
       box-sizing: border-box;
@@ -24,6 +24,7 @@
       text-align: center;
       font-size: 2.5rem;
       margin-bottom: 40px;
+      color: black; /* ✅ titre noir */
     }
  
     .description {
@@ -31,10 +32,11 @@
       margin: 0 auto 40px;
       font-size: 1.15rem;
       line-height: 1.4;
-      background-color: rgba(255, 255, 255, 0.06);
+      background-color: rgba(0, 0, 0, 0.04); /* ✅ fond clair */
       padding: 15px 25px 15px 25px;
       position: relative;
       border-radius: 6px;
+      color: black !important; /* ✅ forçage du texte en noir */
     }
  
     .description::before {
@@ -44,24 +46,25 @@
       top: 15px;
       bottom: 15px;
       width: 4px;
-      background-color: white;
+      background-color: black;
       border-radius: 2px;
     }
  
     .description p {
       margin-bottom: 10px;
+      color: black !important; /* ✅ garantit que tout reste noir */
     }
 
     .button-link {
       display: inline-block;
-      background-color: white;
-      color: #1f387e;
+      background-color: black;
+      color: #ffffff;
       font-weight: 600;
       padding: 12px 28px;
       border-radius: 100px;
       text-decoration: none;
       font-size: 16px;
-      box-shadow: 0 0 0 1.5px white;
+      box-shadow: 0 0 0 1.5px black;
       transition: background-color 0.4s ease, color 0.4s ease;
       cursor: pointer;
       margin-top: 20px;
@@ -82,13 +85,13 @@
       align-items: center;
       gap: 8px;
       padding: 12px 28px;
-      border: 2px solid white;
+      border: 2px solid black;
       font-size: 16px;
-      background-color: transparent;
+      background-color: black;
       border-radius: 100px;
       font-weight: 600;
       color: white;
-      box-shadow: 0 0 0 1.5px white;
+      box-shadow: 0 0 0 1.5px black;
       cursor: pointer;
       overflow: hidden;
       transition: all 0.4s ease;
@@ -108,16 +111,17 @@
  
     .animated-button:hover {
       background-color: white;
-      color: #1f387e;
+      color: black;
+      border-color: black;
       box-shadow: none;
     }
  
     .animated-button:hover svg {
-      fill: #1f387e;
+      fill: black;
     }
  
     .animated-button:hover .text {
-      color: #1f387e;
+      color: black;
     }
 
     /* Responsive Design */
@@ -189,7 +193,6 @@
       }
     }
     
-    /* Optimisation pour très petits écrans */
     @media (max-width: 320px) {
       body {
         padding: 15px 8px;
@@ -208,13 +211,17 @@
 </head>
 <body>
 
-<h1>Lampe UV ACIDE</h1>
+<h1>Flyer cinéma en anaglyphe</h1>
 
 <div class="description">
-  <p><strong>Création d'un environnement visuel autour d'une lampe texturée</strong></p>
+  <p><strong>Lampe UV ACIDE</strong></p>
   
   <p>
-    À partir d'une lampe fournie par le professeur, j'ai créé une texture et l'ai intégrée dans une scène immersive. La lampe forme la lettre « I » du mot <strong>ACIDE</strong>, suspendue dans un décor saturé de vert fluo et de reflets chimiques.
+    Création d'un environnement visuel autour d'une lampe texturée
+  </p>
+  
+  <p>
+   À partir d'une lampe fournie par le professeur, j'ai créé une texture et l'ai intégrée dans une scène immersive. La lampe forme la lettre « I » du mot ACIDE, suspendue dans un décor saturé de vert fluo et de reflets chimiques.
   </p>
   
   <p>
@@ -223,7 +230,7 @@
   
   <p><strong>Logiciel utilisé :</strong> Blender</p>
 
-  <a href="https://www.behance.net/gallery/229827753/Lampe-UV-ACIDE" 
+  <a href="https://www.behance.net/gallery/229821725/Flyer-sur-le-theme-du-cinma-anaglyphe" 
      target="_blank" 
      rel="noopener noreferrer"
      class="button-link">
@@ -239,5 +246,7 @@
 </a>
 
 </body>
-
 </html>
+
+
+
